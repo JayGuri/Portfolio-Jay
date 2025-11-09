@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { motion } from 'framer-motion';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
+import { MorphingBlob } from '@/components/animations/MorphingBlob';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -63,16 +65,28 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 px-6 md:px-8 relative overflow-hidden">
-      {/* Grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10" />
-      
+    <section id="contact" className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black">
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-0">
+          <MorphingBlob color="#DA020E" size={500} />
+        </div>
+        <div className="absolute bottom-0 right-0">
+          <MorphingBlob color="#FFD700" size={450} />
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
         <ScrollReveal>
-          <h2 className="text-5xl md:text-6xl font-black text-text-primary mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-text-secondary mb-12">
+          <motion.h2
+            className="text-7xl md:text-9xl font-black text-white mb-8"
+            style={{
+              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+            }}
+          >
+            CONTACT
+          </motion.h2>
+          <p className="text-2xl text-white/80 mb-12">
             Let's connect and discuss opportunities
           </p>
         </ScrollReveal>
@@ -80,166 +94,214 @@ export function Contact() {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Form */}
           <ScrollReveal delay={0.2}>
-            <Card className="bg-background-secondary border-white/10">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">Send a Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div>
-                    <Input
-                      placeholder="Your Name"
-                      {...register('name')}
-                      className={errors.name ? 'border-red-500' : 'bg-background-tertiary border-white/10'}
-                    />
-                    {errors.name && (
-                      <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Input
-                      type="email"
-                      placeholder="Your Email"
-                      {...register('email')}
-                      className={errors.email ? 'border-red-500' : 'bg-background-tertiary border-white/10'}
-                    />
-                    {errors.email && (
-                      <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Input
-                      placeholder="Subject (Optional)"
-                      {...register('subject')}
-                      className="bg-background-tertiary border-white/10"
-                    />
-                  </div>
-
-                  <div>
-                    <Textarea
-                      placeholder="Your Message"
-                      rows={6}
-                      {...register('message')}
-                      className={errors.message ? 'border-red-500' : 'bg-background-tertiary border-white/10'}
-                    />
-                    {errors.message && (
-                      <p className="text-sm text-red-500 mt-1">{errors.message.message}</p>
-                    )}
-                  </div>
-
-                  {submitStatus === 'success' && (
-                    <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/50 text-green-400">
-                      Message sent! I'll get back to you soon.
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-3xl font-black text-white">Send a Message</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <div>
+                      <Input
+                        placeholder="Your Name"
+                        {...register('name')}
+                        className={errors.name ? 'border-[#DA020E]' : ''}
+                      />
+                      {errors.name && (
+                        <p className="text-sm text-[#DA020E] mt-1">{errors.name.message}</p>
+                      )}
                     </div>
-                  )}
 
-                  {submitStatus === 'error' && (
-                    <div className="p-4 rounded-lg bg-red-500/20 border border-red-500/50 text-red-400">
-                      Failed to send message. Please try again or contact me directly.
+                    <div>
+                      <Input
+                        type="email"
+                        placeholder="Your Email"
+                        {...register('email')}
+                        className={errors.email ? 'border-[#DA020E]' : ''}
+                      />
+                      {errors.email && (
+                        <p className="text-sm text-[#DA020E] mt-1">{errors.email.message}</p>
+                      )}
                     </div>
-                  )}
 
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    disabled={isSubmitting} 
-                    className="w-full bg-accent-red hover:bg-accent-red-dark shadow-lg shadow-accent-red/50"
-                  >
-                    {isSubmitting ? (
-                      'Sending...'
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-4 w-4" />
-                        Send Message
-                      </>
+                    <div>
+                      <Input
+                        placeholder="Subject (Optional)"
+                        {...register('subject')}
+                      />
+                    </div>
+
+                    <div>
+                      <Textarea
+                        placeholder="Your Message"
+                        rows={6}
+                        {...register('message')}
+                        className={errors.message ? 'border-[#DA020E]' : ''}
+                      />
+                      {errors.message && (
+                        <p className="text-sm text-[#DA020E] mt-1">{errors.message.message}</p>
+                      )}
+                    </div>
+
+                    {submitStatus === 'success' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="p-4 rounded-lg bg-[#FFD700]/20 border-2 border-[#FFD700] text-[#FFD700]"
+                      >
+                        Message sent! I'll get back to you soon.
+                      </motion.div>
                     )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+
+                    {submitStatus === 'error' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="p-4 rounded-lg bg-[#DA020E]/20 border-2 border-[#DA020E] text-[#DA020E]"
+                      >
+                        Failed to send message. Please try again or contact me directly.
+                      </motion.div>
+                    )}
+
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button
+                        type="submit"
+                        size="lg"
+                        disabled={isSubmitting}
+                        className="w-full bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
+                      >
+                        {isSubmitting ? (
+                          'Sending...'
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-5 w-5" />
+                            Send Message
+                          </>
+                        )}
+                      </Button>
+                    </motion.div>
+                  </form>
+                </CardContent>
+              </Card>
+            </motion.div>
           </ScrollReveal>
 
           {/* Contact Info */}
           <ScrollReveal delay={0.3}>
             <div className="space-y-6">
-              <Card className="bg-background-secondary border-white/10">
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <Mail className="h-5 w-5 text-accent-red" />
-                      <div>
-                        <div className="text-sm text-text-secondary">Email</div>
-                        <a
-                          href={`mailto:${socialLinks.email}`}
-                          className="text-text-primary hover:text-accent-red transition-colors"
+              <motion.div
+                whileHover={{ scale: 1.02, y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#FFD700] transition-all duration-300">
+                  <CardContent className="p-8">
+                    <div className="space-y-6">
+                      <motion.div
+                        className="flex items-center gap-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <div className="p-3 bg-[#DA020E]/20 rounded-lg">
+                          <Mail className="h-6 w-6 text-[#DA020E]" />
+                        </div>
+                        <div>
+                          <div className="text-sm text-white/60 mb-1">Email</div>
+                          <a
+                            href={`mailto:${socialLinks.email}`}
+                            className="text-white hover:text-[#DA020E] transition-colors font-semibold"
+                          >
+                            {socialLinks.email}
+                          </a>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        className="flex items-center gap-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <div className="p-3 bg-[#FFD700]/20 rounded-lg">
+                          <Phone className="h-6 w-6 text-[#FFD700]" />
+                        </div>
+                        <div>
+                          <div className="text-sm text-white/60 mb-1">Phone</div>
+                          <a
+                            href={`tel:${socialLinks.phone}`}
+                            className="text-white hover:text-[#FFD700] transition-colors font-semibold"
+                          >
+                            {socialLinks.phone}
+                          </a>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        className="flex items-center gap-4"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <div className="p-3 bg-[#DA020E]/20 rounded-lg">
+                          <MapPin className="h-6 w-6 text-[#DA020E]" />
+                        </div>
+                        <div>
+                          <div className="text-sm text-white/60 mb-1">Location</div>
+                          <div className="text-white font-semibold">{socialLinks.location}</div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02, y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-black text-white">Connect With Me</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-4">
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(socialLinks.linkedin, '_blank')}
+                          className="bg-transparent border-2 border-white/20 text-white hover:border-[#DA020E] hover:text-[#DA020E]"
                         >
-                          {socialLinks.email}
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      <Phone className="h-5 w-5 text-accent-red" />
-                      <div>
-                        <div className="text-sm text-text-secondary">Phone</div>
-                        <a
-                          href={`tel:${socialLinks.phone}`}
-                          className="text-text-primary hover:text-accent-red transition-colors"
+                          <Linkedin className="mr-2 h-4 w-4" />
+                          LinkedIn
+                        </Button>
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(socialLinks.github, '_blank')}
+                          className="bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]"
                         >
-                          {socialLinks.phone}
-                        </a>
-                      </div>
+                          <Github className="mr-2 h-4 w-4" />
+                          GitHub
+                        </Button>
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(socialLinks.instagram, '_blank')}
+                          className="bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]"
+                        >
+                          <Instagram className="mr-2 h-4 w-4" />
+                          Instagram
+                        </Button>
+                      </motion.div>
                     </div>
-
-                    <div className="flex items-center gap-4">
-                      <MapPin className="h-5 w-5 text-accent-red" />
-                      <div>
-                        <div className="text-sm text-text-secondary">Location</div>
-                        <div className="text-text-primary">{socialLinks.location}</div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-background-secondary border-white/10">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold">Connect With Me</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(socialLinks.linkedin, '_blank')}
-                      className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20"
-                    >
-                      <Linkedin className="mr-2 h-4 w-4" />
-                      LinkedIn
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(socialLinks.github, '_blank')}
-                      className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20"
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      GitHub
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(socialLinks.instagram, '_blank')}
-                      className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20"
-                    >
-                      <Instagram className="mr-2 h-4 w-4" />
-                      Instagram
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
           </ScrollReveal>
         </div>

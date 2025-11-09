@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skill } from '@/types';
 
@@ -31,11 +32,13 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
         opacity: 0,
         y: 40,
         scale: 0.9,
+        rotationX: -15,
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
+        rotationX: 0,
         duration: 0.8,
         delay,
         ease: 'power2.out',
@@ -46,7 +49,7 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
       }
     );
 
-    // Progress bar animation
+    // Progress bar animation with glow effect
     gsap.to(bar, {
       width: `${skill.proficiency}%`,
       duration: 1.5,
@@ -56,6 +59,11 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
         trigger: card,
         start: 'top 80%',
       },
+      onUpdate: function() {
+        const progress = this.progress();
+        const glowIntensity = progress * 0.5;
+        bar.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(218, 2, 14, ${glowIntensity})`;
+      },
     });
 
     return () => {
@@ -64,20 +72,38 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
   }, [skill.proficiency, delay]);
 
   return (
-    <Card ref={cardRef} className="h-full border-white/10 hover:border-accent-red/30 transition-colors">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-text-primary font-semibold text-lg">{skill.name}</span>
-          <span className="text-text-secondary text-sm font-medium">{skill.proficiency}%</span>
-        </div>
-        <div className="w-full h-2 bg-background-tertiary rounded-full overflow-hidden">
-          <div
-            ref={barRef}
-            className="h-full bg-gradient-to-r from-accent-red to-accent-gold rounded-full"
-            style={{ width: 0 }}
-          />
-        </div>
-      </CardContent>
-    </Card>
+    <motion.div
+      ref={cardRef}
+      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Card className="h-full bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-white font-bold text-lg">{skill.name}</span>
+            <motion.span
+              className="text-[#FFD700] text-sm font-bold"
+              animate={{
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: delay,
+              }}
+            >
+              {skill.proficiency}%
+            </motion.span>
+          </div>
+          <div className="w-full h-3 bg-black/50 rounded-full overflow-hidden border border-white/10">
+            <motion.div
+              ref={barRef}
+              className="h-full rounded-full bg-gradient-to-r from-[#DA020E] via-[#FFD700] to-[#DA020E]"
+              style={{ width: 0 }}
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }

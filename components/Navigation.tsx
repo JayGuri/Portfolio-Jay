@@ -63,16 +63,16 @@ export function Navigation() {
                   className={cn(
                     'w-3 h-3 rounded-full border-2 transition-colors',
                     activeSection === item.id
-                      ? 'bg-accent-primary border-accent-primary'
-                      : 'bg-transparent border-text-muted group-hover:border-text-secondary'
+                      ? 'bg-[#DA020E] border-[#DA020E] shadow-[0_0_20px_rgba(218,2,14,0.8)]'
+                      : 'bg-transparent border-white/30 group-hover:border-[#FFD700]'
                   )}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                 />
                 <span
                   className={cn(
-                    'ml-4 text-sm text-text-muted opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap',
-                    activeSection === item.id && 'opacity-100 text-text-primary'
+                    'ml-4 text-sm text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap',
+                    activeSection === item.id && 'opacity-100 text-[#FFD700]'
                   )}
                 >
                   {item.label}
@@ -119,10 +119,10 @@ export function Navigation() {
                     <button
                       onClick={() => scrollToSection(item.id)}
                       className={cn(
-                        'text-left text-lg font-medium transition-colors',
+                        'text-left text-lg font-bold transition-colors',
                         activeSection === item.id
-                          ? 'text-accent-primary'
-                          : 'text-text-secondary hover:text-text-primary'
+                          ? 'text-[#DA020E]'
+                          : 'text-white/70 hover:text-[#FFD700]'
                       )}
                       suppressHydrationWarning
                     >

@@ -1,12 +1,24 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
+import { StaggerChildren } from '@/components/animations/StaggerChildren';
+import { MorphingBlob } from '@/components/animations/MorphingBlob';
 import { SkillCard } from '@/components/SkillCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { skills } from '@/lib/data';
 
 export function Skills() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+
   const skillCategories = [
     { id: 'languages', label: 'Languages' },
     { id: 'frameworks', label: 'Frameworks' },
@@ -16,28 +28,57 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-20 md:py-32 px-6 md:px-8 relative overflow-hidden">
-      {/* Grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10" />
-      
+    <section
+      ref={sectionRef}
+      id="skills"
+      className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black"
+    >
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/3 right-0">
+          <MorphingBlob color="#FFD700" size={400} />
+        </div>
+        <div className="absolute bottom-1/3 left-0">
+          <MorphingBlob color="#DA020E" size={350} />
+        </div>
+      </div>
+
+      {/* Animated Grid */}
+      <motion.div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(#FFD700 1px, transparent 1px),
+            linear-gradient(90deg, #FFD700 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+          opacity,
+        }}
+      />
+
       <div className="max-w-7xl mx-auto relative z-10">
         <ScrollReveal>
-          <h2 className="text-5xl md:text-6xl font-black text-text-primary mb-4">
-            Skills
-          </h2>
-          <p className="text-xl text-text-secondary mb-12">
+          <motion.h2
+            className="text-7xl md:text-9xl font-black text-white mb-8"
+            style={{
+              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+            }}
+          >
+            SKILLS
+          </motion.h2>
+          <p className="text-2xl text-white/80 mb-12">
             Technologies and tools I work with
           </p>
         </ScrollReveal>
 
         <Tabs defaultValue="languages" className="w-full">
           <ScrollReveal delay={0.2}>
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-8 bg-background-secondary border border-white/10">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-12 bg-black/50 backdrop-blur-sm border-2 border-white/10">
               {skillCategories.map((category) => (
-                <TabsTrigger 
-                  key={category.id} 
+                <TabsTrigger
+                  key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-accent-red data-[state=active]:text-white"
+                  className="data-[state=active]:bg-[#DA020E] data-[state=active]:text-white data-[state=active]:border-[#DA020E] border-2 border-transparent hover:border-[#FFD700] transition-all"
                 >
                   {category.label}
                 </TabsTrigger>
@@ -48,18 +89,24 @@ export function Skills() {
           {skillCategories.map((category) => (
             <TabsContent key={category.id} value={category.id}>
               {category.id === 'softSkills' ? (
-                <div className="flex flex-wrap gap-3">
-                  {skills.softSkills.map((skill, index) => (
-                    <ScrollReveal key={skill.name} delay={index * 0.1}>
-                      <Badge 
-                        variant="outline" 
-                        className="text-base px-4 py-2 border-accent-red/30 hover:border-accent-red/50 hover:bg-accent-red/10 transition-colors"
+                <StaggerChildren stagger={0.1} selector=".skill-badge">
+                  <div className="flex flex-wrap gap-4">
+                    {skills.softSkills.map((skill, index) => (
+                      <motion.div
+                        key={skill.name}
+                        className="skill-badge"
+                        whileHover={{ scale: 1.1, rotate: 2 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        {skill.name}
-                      </Badge>
-                    </ScrollReveal>
-                  ))}
-                </div>
+                        <Badge
+                          className="text-lg px-6 py-3 bg-[#DA020E]/20 text-[#DA020E] border-2 border-[#DA020E] hover:bg-[#DA020E] hover:text-white transition-all cursor-pointer"
+                        >
+                          {skill.name}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+                </StaggerChildren>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {skills[category.id as keyof typeof skills]?.map((skill, index) => (

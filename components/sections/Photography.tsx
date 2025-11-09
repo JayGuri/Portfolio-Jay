@@ -1,61 +1,93 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { StaggerChildren } from '@/components/animations/StaggerChildren';
+import { MorphingBlob } from '@/components/animations/MorphingBlob';
 import {
   Dialog,
   DialogContent,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { photographyImages } from '@/lib/data';
-import { ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ExternalLink, X } from 'lucide-react';
 
 export function Photography() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (
-    <section id="photography" className="py-20 md:py-32 px-6 md:px-8 relative overflow-hidden">
-      {/* Grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10" />
-      
+    <section id="photography" className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black">
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 right-1/4">
+          <MorphingBlob color="#FFD700" size={500} />
+        </div>
+        <div className="absolute bottom-1/4 left-1/4">
+          <MorphingBlob color="#DA020E" size={450} />
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
         <ScrollReveal>
-          <h2 className="text-5xl md:text-6xl font-black text-text-primary mb-4">
-            Photography
-          </h2>
-          <p className="text-xl text-text-secondary mb-8">
+          <motion.h2
+            className="text-7xl md:text-9xl font-black text-white mb-8"
+            style={{
+              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+            }}
+          >
+            PHOTOGRAPHY
+          </motion.h2>
+          <p className="text-2xl text-white/80 mb-12">
             Capturing moments through my lens
           </p>
         </ScrollReveal>
 
         {/* Gallery grid */}
         <StaggerChildren stagger={0.1} selector=".photo-item">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {photographyImages.map((photo) => (
               <motion.div
                 key={photo.id}
                 className="photo-item"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05, rotate: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <div
-                  className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 cursor-pointer group hover:border-accent-red/30 transition-colors"
+                <motion.div
+                  className="relative aspect-square rounded-2xl overflow-hidden border-2 border-white/10 cursor-pointer group hover:border-[#DA020E] transition-all duration-300"
                   onClick={() => setSelectedImage(photo.id)}
+                  whileHover={{
+                    boxShadow: '0 0 40px rgba(218, 2, 14, 0.5)',
+                  }}
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-accent-red/20 to-accent-gold/20 flex items-center justify-center">
-                    <div className="text-6xl font-bold text-text-muted">{photo.id}</div>
+                  <div className="w-full h-full bg-gradient-to-br from-[#DA020E]/30 to-[#FFD700]/30 flex items-center justify-center">
+                    <motion.div
+                      className="text-8xl font-black text-white/20"
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 5, -5, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        delay: photo.id * 0.2,
+                      }}
+                    >
+                      {photo.id}
+                    </motion.div>
                   </div>
                   {/* Placeholder - replace with actual images */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
-                    className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                    className="absolute inset-0 bg-black/80 flex items-center justify-center"
                   >
-                    <span className="text-text-primary font-semibold">Click to view</span>
+                    <span className="text-white font-bold text-xl">Click to view</span>
                   </motion.div>
-                </div>
+                  
+                  {/* Corner accent */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FFD700]/30 to-transparent pointer-events-none" />
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -63,32 +95,47 @@ export function Photography() {
 
         <ScrollReveal delay={0.6}>
           <div className="text-center">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => window.open('https://instagram.com/jaymanishguri', '_blank')}
-              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20"
-            >
-              <ExternalLink className="mr-2 h-4 w-4" />
-              View Full Portfolio
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => window.open('https://instagram.com/jaymanishguri', '_blank')}
+                className="bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black shadow-[0_0_40px_rgba(255,215,0,0.3)]"
+              >
+                <ExternalLink className="mr-2 h-5 w-5" />
+                View Full Portfolio
+              </Button>
+            </motion.div>
           </div>
         </ScrollReveal>
 
         {/* Lightbox */}
         <Dialog open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
-          {selectedImage !== null && (
-            <DialogContent className="max-w-4xl p-0 bg-background-secondary border-white/10">
-              <div className="relative w-full aspect-video bg-background-tertiary">
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-6xl font-bold text-text-muted">
+          <AnimatePresence>
+            {selectedImage !== null && (
+              <DialogContent className="max-w-5xl p-0 bg-black border-2 border-[#DA020E]">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="relative w-full aspect-video bg-gradient-to-br from-[#DA020E]/20 to-[#FFD700]/20 flex items-center justify-center"
+                >
+                  <div className="text-8xl font-black text-white/30">
                     {photographyImages.find((p) => p.id === selectedImage)?.alt || 'Image'}
                   </div>
-                </div>
-                {/* Placeholder - replace with actual image */}
-              </div>
-            </DialogContent>
-          )}
+                  {/* Placeholder - replace with actual image */}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setSelectedImage(null)}
+                    className="absolute top-4 right-4 text-white hover:bg-[#DA020E]"
+                  >
+                    <X className="h-6 w-6" />
+                  </Button>
+                </motion.div>
+              </DialogContent>
+            )}
+          </AnimatePresence>
         </Dialog>
       </div>
     </section>
