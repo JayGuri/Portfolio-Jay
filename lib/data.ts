@@ -107,7 +107,7 @@ export const experiences: Experience[] = [
 
 export const education: Experience[] = [
   {
-    id: 1,
+    id: 5,
     type: 'education',
     institution: 'Dwarkadas J. Sanghvi College of Engineering',
     degree: 'B.Tech in Computer Science and Engineering (Data Science)',
@@ -118,7 +118,7 @@ export const education: Experience[] = [
     tags: [],
   },
   {
-    id: 2,
+    id: 6,
     type: 'education',
     institution: 'Hiranandani Foundation School, Powai',
     degree: 'ICSE',

@@ -3,11 +3,13 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +60,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="bg-background-primary text-text-primary antialiased">
+      <body className="bg-black text-white antialiased">
+        <SmoothScroll />
         <Navigation />
         <main>{children}</main>
         <Footer />
@@ -66,4 +69,3 @@ export default function RootLayout({
     </html>
   );
 }
-

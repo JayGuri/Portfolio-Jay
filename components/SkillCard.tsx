@@ -1,9 +1,14 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skill } from '@/types';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface SkillCardProps {
   skill: Skill;
@@ -11,33 +16,68 @@ interface SkillCardProps {
 }
 
 export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const bar = barRef.current;
+    if (!card || !bar) return;
+
+    // Card animation
+    gsap.fromTo(
+      card,
+      {
+        opacity: 0,
+        y: 40,
+        scale: 0.9,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        delay,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+        },
+      }
+    );
+
+    // Progress bar animation
+    gsap.to(bar, {
+      width: `${skill.proficiency}%`,
+      duration: 1.5,
+      delay: delay + 0.3,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 80%',
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [skill.proficiency, delay]);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, delay }}
-    >
-      <Card className="h-full">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-text-primary font-medium">{skill.name}</span>
-            <span className="text-text-secondary text-sm">{skill.proficiency}%</span>
-          </div>
-          <div className="w-full h-2 bg-background-tertiary rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-gradient-to-r from-accent-primary to-accent-secondary"
-              initial={{ width: 0 }}
-              animate={isInView ? { width: `${skill.proficiency}%` } : { width: 0 }}
-              transition={{ duration: 1, delay: delay + 0.2, ease: 'easeOut' }}
-            />
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+    <Card ref={cardRef} className="h-full border-white/10 hover:border-accent-red/30 transition-colors">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-text-primary font-semibold text-lg">{skill.name}</span>
+          <span className="text-text-secondary text-sm font-medium">{skill.proficiency}%</span>
+        </div>
+        <div className="w-full h-2 bg-background-tertiary rounded-full overflow-hidden">
+          <div
+            ref={barRef}
+            className="h-full bg-gradient-to-r from-accent-red to-accent-gold rounded-full"
+            style={{ width: 0 }}
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 }
-

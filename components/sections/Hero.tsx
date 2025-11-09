@@ -1,13 +1,40 @@
 'use client';
 
-import { FadeIn } from '@/components/animations/FadeIn';
-import { StaggerText } from '@/components/animations/StaggerText';
-import { ParallaxSection } from '@/components/animations/ParallaxSection';
+import { useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+const ThreeScene = dynamic(
+  () => import('@/components/ThreeScene').then((mod) => ({ default: mod.ThreeScene })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
+import { MorphingBlob } from '@/components/animations/MorphingBlob';
+import { FluidText } from '@/components/animations/FluidText';
 import { Button } from '@/components/ui/button';
 import { Download, ArrowDown } from 'lucide-react';
-import Image from 'next/image';
 
 export function Hero() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 700 };
+  const x = useSpring(mouseX, springConfig);
+  const y = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set((e.clientX / window.innerWidth - 0.5) * 20);
+      mouseY.set((e.clientY / window.innerHeight - 0.5) * 20);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
   const scrollToProjects = () => {
     const element = document.getElementById('projects');
     if (element) {
@@ -25,61 +52,131 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center px-6 md:px-8 bg-gradient-to-b from-background-primary to-background-secondary"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
     >
-      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-5 gap-12 items-center">
-        {/* Left side - Text content (60%) */}
-        <div className="lg:col-span-3 space-y-8">
-          <FadeIn delay={0.3}>
-            <h1 className="text-5xl md:text-7xl font-bold text-text-primary">
-              <StaggerText text="Jay Guri" />
-            </h1>
-          </FadeIn>
+      {/* Three.js Background */}
+      <ThreeScene />
 
-          <FadeIn delay={0.5}>
-            <h2 className="text-2xl md:text-4xl font-semibold text-text-primary">
-              Full-Stack Developer & Data Science Enthusiast
-            </h2>
-          </FadeIn>
-
-          <FadeIn delay={0.7}>
-            <p className="text-lg md:text-xl text-text-secondary max-w-2xl">
-              Building intelligent, user-centric digital experiences with MERN
-              stack and Machine Learning
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.9}>
-            <div className="flex flex-wrap gap-4">
-              <Button onClick={scrollToProjects} size="lg">
-                View My Work
-                <ArrowDown className="ml-2 h-4 w-4" />
-              </Button>
-              <Button onClick={downloadResume} variant="outline" size="lg">
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
-              </Button>
-            </div>
-          </FadeIn>
+      {/* Morphing Blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4">
+          <MorphingBlob color="#DA020E" size={400} />
         </div>
-
-        {/* Right side - Image (40%) */}
-        <div className="lg:col-span-2 hidden lg:block">
-          <ParallaxSection speed={0.3}>
-            <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-border">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary opacity-30 blur-3xl" />
-              </div>
-              {/* Placeholder for profile image - replace with actual image */}
-              <div className="relative w-full h-full flex items-center justify-center">
-                <div className="text-6xl font-bold text-text-muted">JG</div>
-              </div>
-            </div>
-          </ParallaxSection>
+        <div className="absolute bottom-1/4 right-1/4">
+          <MorphingBlob color="#FFD700" size={350} />
         </div>
       </div>
+
+      {/* Animated Grid */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `
+            linear-gradient(#DA020E 1px, transparent 1px),
+            linear-gradient(90deg, #DA020E 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+          transform: `translate(${x.get()}px, ${y.get()}px)`,
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <FluidText
+            text="JAY GURI"
+            className="text-9xl md:text-[12rem] font-black text-white mb-6 tracking-tighter"
+            delay={0.2}
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="relative"
+          >
+            <motion.h2
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{
+                background: 'linear-gradient(135deg, #DA020E 0%, #FFD700 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              Full-Stack Developer
+            </motion.h2>
+            <motion.p
+              className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
+              Building intelligent, user-centric digital experiences
+            </motion.p>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="flex flex-wrap items-center justify-center gap-6"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                onClick={scrollToProjects}
+                size="lg"
+                className="text-lg px-10 py-6 bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
+              >
+                View My Work
+                <ArrowDown className="ml-2 h-5 w-5" />
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                onClick={downloadResume}
+                variant="outline"
+                size="lg"
+                className="text-lg px-10 py-6 bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black shadow-[0_0_40px_rgba(255,215,0,0.3)]"
+              >
+                <Download className="mr-2 h-5 w-5" />
+                Download Resume
+              </Button>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 12, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-6 h-10 border-2 border-[#FFD700] rounded-full flex items-start justify-center p-2"
+        >
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1 h-3 bg-[#FFD700] rounded-full"
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
-

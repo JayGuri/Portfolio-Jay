@@ -1,24 +1,36 @@
 export const colors = {
+  // Base colors - Deeper, more professional
   background: {
-    primary: '#0f0f0f',
-    secondary: '#1a1a1a',
-    tertiary: '#242424',
+    primary: '#0a0a0a',
+    secondary: '#141414',
+    tertiary: '#1a1a1a',
+    accent: '#0f0f0f',
   },
+  // Text hierarchy - High contrast
   text: {
-    primary: '#f5f5f5',
-    secondary: '#a0a0a0',
-    muted: '#6b6b6b',
+    primary: '#ffffff',
+    secondary: '#e0e0e0',
+    muted: '#a0a0a0',
+    disabled: '#666666',
   },
+  // Accent colors with variants
   accent: {
-    primary: '#DA291C',
-    secondary: '#FEBE10',
+    red: {
+      DEFAULT: '#DA291C',
+      light: '#FF4136',
+      dark: '#B22222',
+    },
+    gold: {
+      DEFAULT: '#FEBE10',
+      light: '#FFD700',
+      dark: '#DAA520',
+    },
     spotify: '#1DB954',
   },
-  border: '#2a2a2a',
-  gray: {
-    100: '#424242',
-    200: '#555555',
-  },
+  // Functional colors
+  border: 'rgba(255, 255, 255, 0.1)',
+  glow: 'rgba(218, 41, 28, 0.4)',
+  overlay: 'rgba(0, 0, 0, 0.8)',
 } as const;
 
 export const navItems = [

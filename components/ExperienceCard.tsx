@@ -1,12 +1,11 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Experience } from '@/types';
 import { MapPin, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 
 interface ExperienceCardProps {
   experience: Experience;
@@ -15,15 +14,12 @@ interface ExperienceCardProps {
 }
 
 export function ExperienceCard({ experience, index, isEven }: ExperienceCardProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   const getTypeColor = (type: Experience['type']) => {
     switch (type) {
       case 'leadership':
-        return 'border-accent-secondary text-accent-secondary';
+        return 'border-accent-gold text-accent-gold';
       case 'work':
-        return 'border-accent-primary text-accent-primary';
+        return 'border-accent-red text-accent-red';
       case 'technical':
         return 'border-accent-spotify text-accent-spotify';
       default:
@@ -32,17 +28,14 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
   };
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? -50 : 50 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={cn(
-        'relative',
-        'lg:flex lg:items-center',
-        isEven ? 'lg:justify-start' : 'lg:justify-end'
-      )}
-    >
+    <ScrollReveal delay={index * 0.1}>
+      <div
+        className={cn(
+          'relative',
+          'lg:flex lg:items-center',
+          isEven ? 'lg:justify-start' : 'lg:justify-end'
+        )}
+      >
       <div className={cn('lg:w-1/2', isEven ? 'lg:pr-8' : 'lg:pl-8 lg:ml-auto')}>
         <Card className={cn('border-2', getTypeColor(experience.type))}>
           <CardHeader>
@@ -68,7 +61,7 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
               <ul className="space-y-2 mb-4">
                 {experience.description.map((desc, i) => (
                   <li key={i} className="text-text-secondary flex items-start gap-2">
-                    <span className="text-accent-primary mt-1.5">•</span>
+                    <span className="text-accent-red mt-1.5">•</span>
                     <span>{desc}</span>
                   </li>
                 ))}
@@ -92,10 +85,11 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
                 </Badge>
               ))}
             </div>
-          </CardContent>
-        </Card>
+        </CardContent>
+      </Card>
       </div>
-    </motion.div>
+    </div>
+    </ScrollReveal>
   );
 }
 

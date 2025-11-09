@@ -1,11 +1,13 @@
 'use client';
 
-import { FadeIn } from '@/components/animations/FadeIn';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
+import { MorphingBlob } from '@/components/animations/MorphingBlob';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { stats } from '@/lib/data';
 import { GraduationCap, Code, Users, Layers } from 'lucide-react';
-import Image from 'next/image';
 
 const iconMap: Record<string, typeof GraduationCap> = {
   GraduationCap,
@@ -15,6 +17,15 @@ const iconMap: Record<string, typeof GraduationCap> = {
 };
 
 export function About() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+
   const scrollToContact = () => {
     const element = document.getElementById('contact');
     if (element) {
@@ -30,91 +41,135 @@ export function About() {
   };
 
   return (
-    <section id="about" className="py-20 md:py-32 px-6 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        <FadeIn>
-          <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-            About Me
-          </h2>
-        </FadeIn>
+    <section
+      ref={sectionRef}
+      id="about"
+      className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black"
+    >
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0">
+          <MorphingBlob color="#DA020E" size={500} />
+        </div>
+        <div className="absolute bottom-0 left-0">
+          <MorphingBlob color="#FFD700" size={450} />
+        </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-12 mt-12">
-          {/* Photo */}
-          <FadeIn delay={0.2}>
-            <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-border group">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20" />
-              <div className="relative w-full h-full flex items-center justify-center">
-                <div className="text-6xl font-bold text-text-muted">JG</div>
-              </div>
-              {/* Placeholder - replace with actual image */}
-            </div>
-          </FadeIn>
+      {/* Animated Grid */}
+      <motion.div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(#DA020E 1px, transparent 1px),
+            linear-gradient(90deg, #DA020E 1px, transparent 1px)
+          `,
+          backgroundSize: '100px 100px',
+          scale,
+          opacity,
+        }}
+      />
 
-          {/* Text content */}
-          <div className="space-y-6">
-            <FadeIn delay={0.3}>
-              <p className="text-lg text-text-secondary leading-relaxed">
-                I'm Jay Guri, a third-year Computer Science (Data Science) student
-                at Dwarkadas J. Sanghvi College of Engineering, Mumbai, with a CGPA
-                of 9.56. As the Chairperson of DJS S4DS (Society for Data Science),
-                I lead a multidisciplinary team driving innovation in AI, machine
-                learning, and web development.
-              </p>
-            </FadeIn>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <ScrollReveal>
+          <motion.h2
+            className="text-7xl md:text-9xl font-black text-white mb-8"
+            style={{
+              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+            }}
+          >
+            ABOUT
+          </motion.h2>
+        </ScrollReveal>
 
-            <FadeIn delay={0.4}>
-              <p className="text-lg text-text-secondary leading-relaxed">
-                With hands-on experience as a Full-Stack Developer Intern at
-                Realatte Ventures, I've worked on real-estate platforms using
-                React, Node.js, and TailwindCSS, optimizing performance and
-                building production-grade features. I'm passionate about creating
-                intelligent, user-centric digital experiences that solve
-                real-world problems.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.5}>
-              <p className="text-lg text-text-secondary leading-relaxed">
-                Beyond coding, I'm an avid nature photographer, capturing
-                landscapes and moments through my lens. I also enjoy exploring
-                music and staying updated with the latest tech trends.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.6}>
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Button onClick={downloadResume} size="lg">
+        <div className="grid md:grid-cols-2 gap-12 mt-16">
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="space-y-6"
+          >
+            <p className="text-xl text-white/90 leading-relaxed">
+              I'm <span className="text-[#DA020E] font-bold">Jay Guri</span>, a third-year Computer Science (Data Science) student
+              at Dwarkadas J. Sanghvi College of Engineering, Mumbai, with a CGPA
+              of <span className="text-[#FFD700] font-bold">9.56</span>.
+            </p>
+            <p className="text-xl text-white/90 leading-relaxed">
+              As the <span className="text-[#DA020E] font-bold">Chairperson of DJS S4DS</span>, I lead a multidisciplinary team
+              driving innovation in AI, machine learning, and web development.
+            </p>
+            <p className="text-xl text-white/90 leading-relaxed">
+              With hands-on experience as a Full-Stack Developer Intern at
+              Realatte Ventures, I've worked on real-estate platforms using
+              React, Node.js, and TailwindCSS, optimizing performance and
+              building production-grade features.
+            </p>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={downloadResume}
+                  size="lg"
+                  className="bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
+                >
                   Download Resume
                 </Button>
-                <Button onClick={scrollToContact} variant="outline" size="lg">
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={scrollToContact}
+                  variant="outline"
+                  size="lg"
+                  className="bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black shadow-[0_0_40px_rgba(255,215,0,0.3)]"
+                >
                   Let's Connect
                 </Button>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
+              </motion.div>
+            </div>
+          </motion.div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-          {stats.map((stat, index) => {
-            const Icon = iconMap[stat.icon] || GraduationCap;
-            return (
-              <FadeIn key={stat.label} delay={0.2 + index * 0.1}>
-                <Card>
-                  <CardContent className="p-6 text-center">
-                    <Icon className="h-8 w-8 mx-auto mb-4 text-accent-primary" />
-                    <div className="text-3xl font-bold text-text-primary mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-text-secondary">{stat.label}</div>
-                  </CardContent>
-                </Card>
-              </FadeIn>
-            );
-          })}
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 gap-6">
+            {stats.map((stat, index) => {
+              const Icon = iconMap[stat.icon] || GraduationCap;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                >
+                  <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+                    <CardContent className="p-8 text-center">
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
+                      >
+                        <Icon className="h-12 w-12 mx-auto mb-4 text-[#FFD700]" />
+                      </motion.div>
+                      <motion.div
+                        className="text-5xl font-black mb-2"
+                        style={{
+                          background: 'linear-gradient(135deg, #DA020E 0%, #FFD700 100%)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                        }}
+                      >
+                        {stat.value}
+                      </motion.div>
+                      <div className="text-sm text-white/70 font-medium">{stat.label}</div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

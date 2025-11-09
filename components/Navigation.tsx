@@ -57,6 +57,7 @@ export function Navigation() {
                 onClick={() => scrollToSection(item.id)}
                 className="group relative flex items-center"
                 aria-label={`Navigate to ${item.label}`}
+                suppressHydrationWarning
               >
                 <motion.div
                   className={cn(
@@ -86,8 +87,9 @@ export function Navigation() {
       <div className="fixed top-6 right-6 z-40 lg:hidden">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-2 rounded-lg bg-background-secondary border border-border text-text-primary hover:bg-background-tertiary transition-colors"
+          className="p-2 rounded-lg bg-black/50 border border-white/10 text-white hover:bg-black/80 transition-colors"
           aria-label="Toggle menu"
+          suppressHydrationWarning
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -108,7 +110,7 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 h-full w-64 bg-background-secondary border-l border-border p-8"
+              className="absolute right-0 top-0 h-full w-64 bg-black/90 backdrop-blur-sm border-l border-white/10 p-8"
               onClick={(e) => e.stopPropagation()}
             >
               <ul className="flex flex-col gap-6 mt-16">
@@ -122,6 +124,7 @@ export function Navigation() {
                           ? 'text-accent-primary'
                           : 'text-text-secondary hover:text-text-primary'
                       )}
+                      suppressHydrationWarning
                     >
                       {item.label}
                     </button>

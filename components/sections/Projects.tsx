@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { FadeIn } from '@/components/animations/FadeIn';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { ProjectCard } from '@/components/ProjectCard';
 import {
   Dialog,
@@ -27,43 +28,75 @@ export function Projects() {
       : projects.filter((p) => p.category === filter || p.tags.includes(filter));
 
   return (
-    <section id="projects" className="py-20 md:py-32 px-6 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        <FadeIn>
-          <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-            Projects
-          </h2>
-          <p className="text-lg text-text-secondary mb-8">
-            Showcase of my recent work and contributions
-          </p>
-        </FadeIn>
+    <section id="projects" className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(218, 2, 14, 0.1), transparent 70%)',
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <ScrollReveal>
+          <motion.h2
+            className="text-7xl md:text-9xl font-black text-white mb-8"
+            style={{
+              textShadow: '0 0 80px rgba(255, 215, 0, 0.5)',
+            }}
+          >
+            PROJECTS
+          </motion.h2>
+        </ScrollReveal>
 
         {/* Filter buttons */}
-        <FadeIn delay={0.2}>
-          <div className="flex flex-wrap gap-3 mb-12">
+        <ScrollReveal delay={0.2}>
+          <div className="flex flex-wrap gap-4 mb-16">
             {categories.map((category) => (
-              <Button
+              <motion.div
                 key={category}
-                variant={filter === category ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setFilter(category)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {category}
-              </Button>
+                <Button
+                  onClick={() => setFilter(category)}
+                  size="lg"
+                  className={
+                    filter === category
+                      ? 'bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]'
+                      : 'bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]'
+                  }
+                >
+                  {category}
+                </Button>
+              </motion.div>
             ))}
           </div>
-        </FadeIn>
+        </ScrollReveal>
 
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onViewDetails={setSelectedProject}
-              delay={index * 0.1}
-            />
-          ))}
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onViewDetails={setSelectedProject}
+                delay={index * 0.1}
+              />
+            ))}
+          </AnimatePresence>
         </div>
 
         {/* Project detail modal */}
@@ -72,29 +105,37 @@ export function Projects() {
           onOpenChange={(open) => !open && setSelectedProject(null)}
         >
           {selectedProject && (
-            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-black border-2 border-[#DA020E]">
               <DialogHeader>
-                <DialogTitle className="text-2xl">{selectedProject.title}</DialogTitle>
-                <DialogDescription className="text-base">
+                <DialogTitle className="text-4xl font-black text-white mb-4">
+                  {selectedProject.title}
+                </DialogTitle>
+                <DialogDescription className="text-lg text-white/80">
                   {selectedProject.longDescription}
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="space-y-6 mt-4">
+              <div className="space-y-6 mt-6">
                 <div>
-                  <h4 className="text-lg font-semibold text-text-primary mb-2">Features</h4>
-                  <ul className="list-disc list-inside space-y-1 text-text-secondary">
+                  <h4 className="text-2xl font-bold text-[#FFD700] mb-3">Features</h4>
+                  <ul className="space-y-2 text-white/90">
                     {selectedProject.features.map((feature, i) => (
-                      <li key={i}>{feature}</li>
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-[#DA020E] mt-1">▸</span>
+                        <span>{feature}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold text-text-primary mb-2">Tech Stack</h4>
+                  <h4 className="text-2xl font-bold text-[#FFD700] mb-3">Tech Stack</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tags.map((tag) => (
-                      <Badge key={tag} variant="outline">
+                      <Badge
+                        key={tag}
+                        className="bg-[#DA020E]/20 text-[#DA020E] border border-[#DA020E]"
+                      >
                         {tag}
                       </Badge>
                     ))}
@@ -104,8 +145,8 @@ export function Projects() {
                 <div className="flex gap-4 pt-4">
                   {selectedProject.github && (
                     <Button
-                      variant="default"
                       onClick={() => window.open(selectedProject.github!, '_blank')}
+                      className="bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
                     >
                       <Github className="mr-2 h-4 w-4" />
                       View on GitHub
@@ -115,6 +156,7 @@ export function Projects() {
                     <Button
                       variant="outline"
                       onClick={() => window.open(selectedProject.liveDemo!, '_blank')}
+                      className="bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black"
                     >
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Live Demo
@@ -129,4 +171,3 @@ export function Projects() {
     </section>
   );
 }
-
