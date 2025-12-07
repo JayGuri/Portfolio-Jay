@@ -10,21 +10,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Football club colors
-        manUtdRed: {
-          DEFAULT: "#DA020E",
-          dark: "#A0000A",
-          light: "#FF1A2A",
-        },
-        realMadridGold: {
-          DEFAULT: "#FFD700",
-          dark: "#DAA520",
-          light: "#FFE44D",
+        // Subtle, organic accent colors
+        accent: {
+          primary: {
+            DEFAULT: "#C97A5F",
+            light: "#D99A7F",
+            dark: "#A85A3F",
+            subtle: "rgba(201, 122, 95, 0.2)",
+          },
+          secondary: {
+            DEFAULT: "#D4A574",
+            light: "#E4B584",
+            dark: "#B49564",
+            subtle: "rgba(212, 165, 116, 0.2)",
+          },
+          tertiary: {
+            DEFAULT: "#8B6F9E",
+            light: "#9B7FAE",
+            dark: "#7B5F8E",
+            subtle: "rgba(139, 111, 158, 0.2)",
+          },
         },
         black: "#000000",
         white: "#FFFFFF",
-        offWhite: "#F5F5F5",
-        // Legacy support
+        offWhite: "#E5E5E5",
         background: {
           primary: "#000000",
           secondary: "#0a0a0a",
@@ -32,14 +41,8 @@ const config: Config = {
         },
         text: {
           primary: "#FFFFFF",
-          secondary: "#F5F5F5",
-          muted: "#a0a0a0",
-        },
-        accent: {
-          red: "#DA020E",
-          gold: "#FFD700",
-          primary: "#DA020E",
-          secondary: "#FFD700",
+          secondary: "#E5E5E5",
+          muted: "#999999",
         },
       },
       fontFamily: {

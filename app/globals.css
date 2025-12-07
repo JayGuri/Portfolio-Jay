@@ -4,16 +4,20 @@
 
 @layer base {
   :root {
-    --man-utd-red: 218 2 14;
-    --real-madrid-gold: 255 215 0;
+    --accent-primary: 201 122 95;
+    --accent-primary-light: 217 154 127;
+    --accent-primary-dark: 168 90 63;
+    --accent-secondary: 212 165 116;
+    --accent-secondary-light: 228 181 132;
+    --accent-secondary-dark: 180 149 100;
+    --accent-tertiary: 139 111 158;
     --black: 0 0 0;
     --white: 255 255 255;
     --background-primary: 0 0 0;
     --background-secondary: 10 10 10;
     --text-primary: 255 255 255;
-    --text-secondary: 245 245 245;
-    --accent-primary: 218 2 14;
-    --accent-secondary: 255 215 0;
+    --text-secondary: 229 229 229;
+    --text-muted: 153 153 153;
   }
 
   * {
@@ -40,16 +44,21 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-manUtdRed rounded-full;
+    background: rgb(var(--accent-primary));
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-manUtdRed-dark;
+    background: rgb(var(--accent-primary-light));
   }
 
   /* Focus styles for accessibility */
   *:focus-visible {
-    @apply outline-none ring-2 ring-accent-primary ring-offset-2 ring-offset-background-primary;
+    outline: none;
+    ring: 2px;
+    ring-color: rgb(var(--accent-primary) / 0.5);
+    ring-offset: 2px;
+    ring-offset-color: rgb(var(--background-primary));
   }
 
   /* Reduced motion support */

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { StaggerChildren } from '@/components/animations/StaggerChildren';
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
@@ -13,13 +14,34 @@ import { Button } from '@/components/ui/button';
 import { photographyImages } from '@/lib/data';
 import { ExternalLink, X } from 'lucide-react';
 
+const DarkVeil = dynamic(
+  () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
+
 export function Photography() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (
     <section id="photography" className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black">
+      {/* DarkVeil Background */}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <DarkVeil 
+          hueShift={15}
+          noiseIntensity={0.02}
+          scanlineIntensity={0.05}
+          speed={0.3}
+          scanlineFrequency={0.5}
+          warpAmount={0.3}
+          resolutionScale={1}
+        />
+      </div>
+
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[1]">
         <div className="absolute top-1/4 right-1/4">
           <MorphingBlob color="#FFD700" size={500} />
         </div>
@@ -28,7 +50,7 @@ export function Photography() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-[10]">
         <ScrollReveal>
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"

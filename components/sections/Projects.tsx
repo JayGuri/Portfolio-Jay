@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { ProjectCard } from '@/components/ProjectCard';
 import {
@@ -17,6 +18,14 @@ import { projects } from '@/lib/data';
 import { Project } from '@/types';
 import { ExternalLink, Github } from 'lucide-react';
 
+const DarkVeil = dynamic(
+  () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
+
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filter, setFilter] = useState<string>('All');
@@ -29,26 +38,20 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(218, 2, 14, 0.1), transparent 70%)',
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+      {/* DarkVeil Background */}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <DarkVeil 
+          hueShift={15}
+          noiseIntensity={0.02}
+          scanlineIntensity={0.05}
+          speed={0.3}
+          scanlineFrequency={0.5}
+          warpAmount={0.3}
+          resolutionScale={1}
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-[10]">
         <ScrollReveal>
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,6 +15,14 @@ import { Button } from '@/components/ui/button';
 import { socialLinks } from '@/lib/constants';
 import { Mail, Phone, MapPin, Linkedin, Github, Instagram, Send } from 'lucide-react';
 import emailjs from 'emailjs-com';
+
+const DarkVeil = dynamic(
+  () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -66,8 +75,21 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black">
+      {/* DarkVeil Background */}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <DarkVeil 
+          hueShift={15}
+          noiseIntensity={0.02}
+          scanlineIntensity={0.05}
+          speed={0.3}
+          scanlineFrequency={0.5}
+          warpAmount={0.3}
+          resolutionScale={1}
+        />
+      </div>
+
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[1]">
         <div className="absolute top-0 left-0">
           <MorphingBlob color="#DA020E" size={500} />
         </div>
@@ -76,7 +98,7 @@ export function Contact() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-[10]">
         <ScrollReveal>
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"

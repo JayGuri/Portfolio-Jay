@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { StaggerChildren } from '@/components/animations/StaggerChildren';
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
@@ -9,6 +10,14 @@ import { SkillCard } from '@/components/SkillCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { skills } from '@/lib/data';
+
+const DarkVeil = dynamic(
+  () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 export function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -33,8 +42,21 @@ export function Skills() {
       id="skills"
       className="relative py-32 md:py-40 px-6 md:px-8 overflow-hidden bg-black"
     >
+      {/* DarkVeil Background */}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <DarkVeil 
+          hueShift={15}
+          noiseIntensity={0.02}
+          scanlineIntensity={0.05}
+          speed={0.3}
+          scanlineFrequency={0.5}
+          warpAmount={0.3}
+          resolutionScale={1}
+        />
+      </div>
+
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[1]">
         <div className="absolute top-1/3 right-0">
           <MorphingBlob color="#FFD700" size={400} />
         </div>
@@ -43,20 +65,7 @@ export function Skills() {
         </div>
       </div>
 
-      {/* Animated Grid */}
-      <motion.div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(#FFD700 1px, transparent 1px),
-            linear-gradient(90deg, #FFD700 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-          opacity,
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-[10]">
         <ScrollReveal>
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"

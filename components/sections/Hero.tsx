@@ -11,6 +11,15 @@ const ThreeScene = dynamic(
     loading: () => null,
   }
 );
+
+const DarkVeil = dynamic(
+  () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
+
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
 import { FluidText } from '@/components/animations/FluidText';
 import { Button } from '@/components/ui/button';
@@ -54,11 +63,26 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
     >
+      {/* DarkVeil Background */}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <DarkVeil 
+          hueShift={15}
+          noiseIntensity={0.02}
+          scanlineIntensity={0.05}
+          speed={0.3}
+          scanlineFrequency={0.5}
+          warpAmount={0.3}
+          resolutionScale={1}
+        />
+      </div>
+
       {/* Three.js Background */}
-      <ThreeScene />
+      <div className="absolute inset-0 z-[1]">
+        <ThreeScene />
+      </div>
 
       {/* Morphing Blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
         <div className="absolute top-1/4 left-1/4">
           <MorphingBlob color="#DA020E" size={400} />
         </div>
@@ -67,21 +91,9 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Animated Grid */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(#DA020E 1px, transparent 1px),
-            linear-gradient(90deg, #DA020E 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-          transform: `translate(${x.get()}px, ${y.get()}px)`,
-        }}
-      />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 text-center">
+      <div className="relative z-[10] max-w-7xl mx-auto px-6 md:px-8 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -163,7 +175,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[10]"
       >
         <motion.div
           animate={{ y: [0, 12, 0] }}
