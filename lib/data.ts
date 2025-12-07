@@ -187,12 +187,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const photographyImages = [
-  { id: 1, src: '/images/photography/1.jpg', alt: 'Nature Landscape', category: 'landscapes' as const },
-  { id: 2, src: '/images/photography/2.jpg', alt: 'Mountain View', category: 'landscapes' as const },
-  { id: 3, src: '/images/photography/3.jpg', alt: 'Forest Scene', category: 'nature' as const },
-  { id: 4, src: '/images/photography/4.jpg', alt: 'Sunset', category: 'landscapes' as const },
-  { id: 5, src: '/images/photography/5.jpg', alt: 'Wildlife', category: 'nature' as const },
-  { id: 6, src: '/images/photography/6.jpg', alt: 'Macro Photography', category: 'macro' as const },
-];
+// Photography images are now in lib/photography.ts for better organization
+// Import from there: import { photographyImages } from '@/lib/photography';
+export { photographyImages } from './photography';
 

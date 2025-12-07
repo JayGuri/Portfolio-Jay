@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
-import { photographyImages } from '@/lib/data';
+import { photographyImages } from '@/lib/photography';
 
 const DarkVeil = dynamic(
   () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
@@ -42,7 +42,6 @@ export function Photography() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-[10] h-full">
-
         {/* Circular Gallery */}
         <div style={{ height: '600px', position: 'relative', marginTop: '2rem' }}>
           <CircularGallery 

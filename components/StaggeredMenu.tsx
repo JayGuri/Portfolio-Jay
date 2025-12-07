@@ -364,7 +364,7 @@ export const StaggeredMenu = ({
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleNavigation = (link: string) => {
+  const handleNavigation = useCallback((link: string) => {
     // Check if it's a hash link (starts with #)
     if (link.startsWith('#')) {
       // Same page navigation
@@ -384,7 +384,7 @@ export const StaggeredMenu = ({
       router.push(link);
     }
     closeMenu();
-  };
+  }, [router, closeMenu]);
 
   return (
     <div
@@ -470,7 +470,10 @@ export const StaggeredMenu = ({
                       <Link
                         className="sm-panel-item"
                         href={it.link}
-                        onClick={() => handleNavigation(it.link)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation(it.link);
+                        }}
                         aria-label={it.ariaLabel}
                         data-index={idx + 1}
                         data-active={isActive || undefined}

@@ -31,16 +31,16 @@ export function Footer() {
               transition={{ delay: 0.1 }}
             >
               Designed and developed with{' '}
-              <span className="text-[#DA020E]">❤️</span> using Next.js, TypeScript, and TailwindCSS
+              <span className="text-white">❤️</span> using Next.js, TypeScript, and TailwindCSS
             </motion.p>
           </div>
 
           <div className="flex items-center gap-4">
             {[
-              { icon: Linkedin, link: socialLinks.linkedin, label: 'LinkedIn', color: '#DA020E' },
-              { icon: Github, link: socialLinks.github, label: 'GitHub', color: '#FFD700' },
-              { icon: Instagram, link: socialLinks.instagram, label: 'Instagram', color: '#FFD700' },
-              { icon: Mail, link: `mailto:${socialLinks.email}`, label: 'Email', color: '#DA020E' },
+              { icon: Linkedin, link: socialLinks.linkedin, label: 'LinkedIn' },
+              { icon: Github, link: socialLinks.github, label: 'GitHub' },
+              { icon: Instagram, link: socialLinks.instagram, label: 'Instagram' },
+              { icon: Mail, link: `mailto:${socialLinks.email}`, label: 'Email' },
             ].map((social, index) => (
               <motion.div
                 key={social.label}
@@ -57,10 +57,7 @@ export function Footer() {
                   onClick={() => window.open(social.link, '_blank')}
                   aria-label={social.label}
                   suppressHydrationWarning
-                  className="hover:bg-[#DA020E]/20 hover:text-[#DA020E] transition-colors"
-                  style={{
-                    color: social.color,
-                  }}
+                  className="hover:bg-white/20 hover:text-white text-white/70 transition-colors"
                 >
                   <social.icon className="h-5 w-5" />
                 </Button>
@@ -80,7 +77,7 @@ export function Footer() {
                 onClick={scrollToTop}
                 aria-label="Back to top"
                 suppressHydrationWarning
-                className="hover:bg-[#FFD700]/20 hover:text-[#FFD700] transition-colors text-[#FFD700]"
+                className="hover:bg-white/20 hover:text-white text-white/70 transition-colors"
               >
                 <ArrowUp className="h-5 w-5" />
               </Button>

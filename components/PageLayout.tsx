@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -15,6 +15,33 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, title, subtitle, submenuItems }: PageLayoutProps) {
   const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState<string>('');
+
+  useEffect(() => {
+    if (!submenuItems || submenuItems.length === 0) return;
+
+    const handleScroll = () => {
+      const sections = submenuItems.map(item => {
+        const hash = item.href.split('#')[1];
+        return hash ? document.getElementById(hash) : null;
+      }).filter(Boolean) as HTMLElement[];
+
+      const scrollPosition = window.scrollY + 150;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on mount
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [submenuItems]);
 
   return (
     <div className="min-h-screen">
@@ -46,11 +73,32 @@ export function PageLayout({ children, title, subtitle, submenuItems }: PageLayo
           >
             <div className="flex flex-wrap gap-4">
               {submenuItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isHashLink = item.href.includes('#');
+                const hash = isHashLink ? item.href.split('#')[1] : '';
+                const isActive = activeSection === hash;
+                
+                const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+                  if (isHashLink) {
+                    e.preventDefault();
+                    const element = document.getElementById(hash);
+                    if (element) {
+                      const offset = 150;
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - offset;
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth',
+                      });
+                      setActiveSection(hash);
+                    }
+                  }
+                };
+                
                 return (
                   <Link
                     key={item.id}
                     href={item.href}
+                    onClick={handleClick}
                     className={cn(
                       'px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300',
                       isActive

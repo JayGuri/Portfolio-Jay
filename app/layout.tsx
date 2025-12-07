@@ -59,25 +59,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const menuItems = navItems.map(item => {
-    // Map nav items to routes
-    const routeMap: Record<string, string> = {
-      'hero': '/',
-      'about': '/#about',
-      'skills': '/skills',
-      'experience': '/experience',
-      'projects': '/projects',
-      'photography': '/photography',
-      'music': '/music',
-      'contact': '/contact',
-    };
-    
-    return {
-      label: item.label,
-      ariaLabel: `Go to ${item.label} section`,
-      link: routeMap[item.id] || `/${item.id}`
-    };
-  });
+  // Simplified navigation structure
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'Work', ariaLabel: 'Go to work page', link: '/work' },
+    { label: 'Creative', ariaLabel: 'Go to creative page', link: '/creative' },
+    { label: 'Contact', ariaLabel: 'Go to contact page', link: '/contact' },
+  ];
 
   const socialItems = [
     { label: 'LinkedIn', link: socialLinks.linkedin },
@@ -89,22 +77,20 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className="bg-black text-white antialiased">
         <SmoothScroll />
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', pointerEvents: 'none', zIndex: 40 }}>
-          <StaggeredMenu
-            position="right"
-            items={menuItems}
-            socialItems={socialItems}
-            displaySocials={true}
-            displayItemNumbering={true}
-            menuButtonColor="#fff"
-            openMenuButtonColor="#fff"
-            changeMenuColorOnOpen={true}
-            colors={['#0a0a0a', '#141414']}
-            accentColor="#C97A5F"
-            isFixed={true}
-            closeOnClickAway={true}
-          />
-        </div>
+        <StaggeredMenu
+          position="right"
+          items={menuItems}
+          socialItems={socialItems}
+          displaySocials={true}
+          displayItemNumbering={true}
+          menuButtonColor="#fff"
+          openMenuButtonColor="#fff"
+          changeMenuColorOnOpen={true}
+          colors={['#0a0a0a', '#141414']}
+          accentColor="#C97A5F"
+          isFixed={true}
+          closeOnClickAway={true}
+        />
         <main>{children}</main>
         <Footer />
       </body>
