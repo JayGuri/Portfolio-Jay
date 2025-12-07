@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
 const ThreeScene = dynamic(
@@ -26,6 +27,7 @@ import { Button } from '@/components/ui/button';
 import { Download, ArrowDown } from 'lucide-react';
 
 export function Hero() {
+  const router = useRouter();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -44,11 +46,8 @@ export function Hero() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const scrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const goToProjects = () => {
+    router.push('/projects');
   };
 
   const downloadResume = () => {
@@ -138,7 +137,7 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                onClick={scrollToProjects}
+                onClick={goToProjects}
                 size="lg"
                 className="text-lg px-10 py-6"
               >

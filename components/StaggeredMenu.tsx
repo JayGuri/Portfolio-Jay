@@ -2,6 +2,8 @@
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import './StaggeredMenu.css';
 
 export const StaggeredMenu = ({
@@ -359,17 +361,27 @@ export const StaggeredMenu = ({
     };
   }, [closeOnClickAway, open, closeMenu]);
 
-  const scrollToSection = (link: string) => {
-    const id = link.replace('#', '');
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleNavigation = (link: string) => {
+    // Check if it's a hash link (starts with #)
+    if (link.startsWith('#')) {
+      // Same page navigation
+      const id = link.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    } else {
+      // Route navigation
+      router.push(link);
     }
     closeMenu();
   };
@@ -435,22 +447,40 @@ export const StaggeredMenu = ({
         <div className="sm-panel-inner">
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
-              items.map((it, idx) => (
-                <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a
-                    className="sm-panel-item"
-                    href={it.link}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(it.link);
-                    }}
-                    aria-label={it.ariaLabel}
-                    data-index={idx + 1}
-                  >
-                    <span className="sm-panel-itemLabel">{it.label}</span>
-                  </a>
-                </li>
-              ))
+              items.map((it, idx) => {
+                const isHashLink = it.link.startsWith('#');
+                const isActive = !isHashLink && pathname === it.link;
+                
+                return (
+                  <li className="sm-panel-itemWrap" key={it.label + idx}>
+                    {isHashLink ? (
+                      <a
+                        className="sm-panel-item"
+                        href={it.link}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation(it.link);
+                        }}
+                        aria-label={it.ariaLabel}
+                        data-index={idx + 1}
+                      >
+                        <span className="sm-panel-itemLabel">{it.label}</span>
+                      </a>
+                    ) : (
+                      <Link
+                        className="sm-panel-item"
+                        href={it.link}
+                        onClick={() => handleNavigation(it.link)}
+                        aria-label={it.ariaLabel}
+                        data-index={idx + 1}
+                        data-active={isActive || undefined}
+                      >
+                        <span className="sm-panel-itemLabel">{it.label}</span>
+                      </Link>
+                    )}
+                  </li>
+                );
+              })
             ) : (
               <li className="sm-panel-itemWrap" aria-hidden="true">
                 <span className="sm-panel-item">

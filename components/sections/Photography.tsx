@@ -42,14 +42,6 @@ export function Photography() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-[10] h-full">
-        <ScrollReveal>
-          <h2 className="text-7xl md:text-9xl font-black text-white mb-8" style={{ textShadow: '0 0 40px rgba(212, 165, 116, 0.2)' }}>
-            PHOTOGRAPHY
-          </h2>
-          <p className="text-2xl text-white/80 mb-12">
-            Capturing moments through my lens
-          </p>
-        </ScrollReveal>
 
         {/* Circular Gallery */}
         <div style={{ height: '600px', position: 'relative', marginTop: '2rem' }}>

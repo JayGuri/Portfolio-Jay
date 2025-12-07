@@ -56,19 +56,6 @@ export function Experience() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-[10]">
-        <ScrollReveal>
-          <motion.h2
-            className="text-7xl md:text-9xl font-black text-white mb-8"
-            style={{
-              textShadow: '0 0 40px rgba(212, 165, 116, 0.2)',
-            }}
-          >
-            EXPERIENCE
-          </motion.h2>
-          <p className="text-2xl text-white/80 mb-12">
-            My professional journey and academic background
-          </p>
-        </ScrollReveal>
 
         <div className="relative">
           {/* Animated Timeline line */}

@@ -99,19 +99,6 @@ export function Contact() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-[10]">
-        <ScrollReveal>
-          <motion.h2
-            className="text-7xl md:text-9xl font-black text-white mb-8"
-            style={{
-              textShadow: '0 0 40px rgba(201, 122, 95, 0.2)',
-            }}
-          >
-            CONTACT
-          </motion.h2>
-          <p className="text-2xl text-white/80 mb-12">
-            Let's connect and discuss opportunities
-          </p>
-        </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Form */}

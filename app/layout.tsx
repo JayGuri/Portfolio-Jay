@@ -59,11 +59,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const menuItems = navItems.map(item => ({
-    label: item.label,
-    ariaLabel: `Go to ${item.label} section`,
-    link: `#${item.id}`
-  }));
+  const menuItems = navItems.map(item => {
+    // Map nav items to routes
+    const routeMap: Record<string, string> = {
+      'hero': '/',
+      'about': '/#about',
+      'skills': '/skills',
+      'experience': '/experience',
+      'projects': '/projects',
+      'photography': '/photography',
+      'music': '/music',
+      'contact': '/contact',
+    };
+    
+    return {
+      label: item.label,
+      ariaLabel: `Go to ${item.label} section`,
+      link: routeMap[item.id] || `/${item.id}`
+    };
+  });
 
   const socialItems = [
     { label: 'LinkedIn', link: socialLinks.linkedin },

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
@@ -26,6 +27,7 @@ const iconMap: Record<string, typeof GraduationCap> = {
 };
 
 export function About() {
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -35,11 +37,8 @@ export function About() {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const goToContact = () => {
+    router.push('/contact');
   };
 
   const downloadResume = () => {
@@ -125,7 +124,7 @@ export function About() {
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
-                  onClick={scrollToContact}
+                  onClick={goToContact}
                   variant="secondary"
                   size="lg"
                 >

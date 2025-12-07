@@ -40,19 +40,6 @@ export function Music() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-[10]">
-        <ScrollReveal>
-          <motion.h2
-            className="text-7xl md:text-9xl font-black text-white mb-8 text-center"
-            style={{
-              textShadow: '0 0 40px rgba(212, 165, 116, 0.2)',
-            }}
-          >
-            MUSIC
-          </motion.h2>
-          <p className="text-2xl text-white/80 mb-12 text-center">
-            What I'm listening to
-          </p>
-        </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
           <motion.div

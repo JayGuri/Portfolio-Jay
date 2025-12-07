@@ -52,16 +52,6 @@ export function Projects() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-[10]">
-        <ScrollReveal>
-          <motion.h2
-            className="text-7xl md:text-9xl font-black text-white mb-8"
-            style={{
-              textShadow: '0 0 40px rgba(212, 165, 116, 0.2)',
-            }}
-          >
-            PROJECTS
-          </motion.h2>
-        </ScrollReveal>
 
         {/* Filter buttons */}
         <ScrollReveal delay={0.2}>
