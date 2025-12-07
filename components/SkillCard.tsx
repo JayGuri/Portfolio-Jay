@@ -62,7 +62,7 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
       onUpdate: function() {
         const progress = this.progress();
         const glowIntensity = progress * 0.5;
-        bar.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(218, 2, 14, ${glowIntensity})`;
+        bar.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(201, 122, 95, ${glowIntensity})`;
       },
     });
 
@@ -77,12 +77,12 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="h-full bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+      <Card className="h-full bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-accent-primary transition-all duration-300">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <span className="text-white font-bold text-lg">{skill.name}</span>
             <motion.span
-              className="text-[#FFD700] text-sm font-bold"
+              className="text-accent-secondary text-sm font-bold"
               animate={{
                 scale: [1, 1.1, 1],
               }}
@@ -98,7 +98,7 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
           <div className="w-full h-3 bg-black/50 rounded-full overflow-hidden border border-white/10">
             <motion.div
               ref={barRef}
-              className="h-full rounded-full bg-gradient-to-r from-[#DA020E] via-[#FFD700] to-[#DA020E]"
+              className="h-full rounded-full bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary"
               style={{ width: 0 }}
             />
           </div>

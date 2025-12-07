@@ -67,14 +67,14 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
           onMouseLeave={() => setIsHovered(false)}
           whileHover={{ y: -10 }}
           transition={{ duration: 0.3 }}
-          className="group relative overflow-hidden rounded-2xl bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300 h-full"
+          className="group relative overflow-hidden rounded-2xl bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-accent-primary transition-all duration-300 h-full"
         >
           {/* Project thumbnail */}
           <div className="relative h-64 overflow-hidden">
             <motion.div
               animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="w-full h-full bg-gradient-to-br from-[#DA020E]/30 to-[#FFD700]/30 flex items-center justify-center"
+              className="w-full h-full bg-gradient-to-br from-accent-primary/30 to-accent-secondary/30 flex items-center justify-center"
             >
               <div className="text-6xl font-black text-white/20">{project.title[0]}</div>
             </motion.div>
@@ -95,7 +95,7 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
               <Button
                 size="sm"
                 onClick={() => onViewDetails(project)}
-                className="bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_20px_rgba(218,2,14,0.5)]"
+                className="bg-accent-primary hover:bg-accent-primary-dark text-white border-2 border-accent-primary shadow-[0_0_20px_rgba(201,122,95,0.5)]"
               >
                 <Eye className="mr-2 h-4 w-4" />
                 View Details
@@ -105,7 +105,7 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
                   size="sm"
                   variant="outline"
                   onClick={() => window.open(project.github!, '_blank')}
-                  className="bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]"
+                  className="bg-transparent border-2 border-white/20 text-white hover:border-accent-secondary hover:text-accent-secondary"
                 >
                   <Github className="mr-2 h-4 w-4" />
                   GitHub
@@ -116,7 +116,7 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
                   size="sm"
                   variant="outline"
                   onClick={() => window.open(project.liveDemo!, '_blank')}
-                  className="bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]"
+                  className="bg-transparent border-2 border-white/20 text-white hover:border-accent-secondary hover:text-accent-secondary"
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Live Demo
@@ -134,7 +134,7 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
             <p className="text-white/80 mb-4 line-clamp-2">{project.description}</p>
             <div className="flex flex-wrap gap-2 mb-4">
               {project.tags.slice(0, 3).map((tag) => (
-                <Badge key={tag} className="text-xs bg-[#DA020E]/20 text-[#DA020E] border border-[#DA020E]">
+                <Badge key={tag} className="text-xs bg-accent-primary/20 text-accent-primary border border-accent-primary">
                   {tag}
                 </Badge>
               ))}
@@ -148,7 +148,7 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
           </CardContent>
 
           {/* Corner accent */}
-          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#DA020E]/30 to-transparent pointer-events-none" />
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-accent-primary/30 to-transparent pointer-events-none" />
         </motion.div>
       </motion.div>
     </motion.div>

@@ -19,21 +19,21 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
     switch (type) {
       case 'leadership':
         return {
-          border: 'border-[#FFD700]',
-          text: 'text-[#FFD700]',
-          bg: 'bg-[#FFD700]/10',
+          border: 'border-accent-secondary',
+          text: 'text-accent-secondary',
+          bg: 'bg-accent-secondary/10',
         };
       case 'work':
         return {
-          border: 'border-[#DA020E]',
-          text: 'text-[#DA020E]',
-          bg: 'bg-[#DA020E]/10',
+          border: 'border-accent-primary',
+          text: 'text-accent-primary',
+          bg: 'bg-accent-primary/10',
         };
       case 'technical':
         return {
-          border: 'border-[#FFD700]',
-          text: 'text-[#FFD700]',
-          bg: 'bg-[#FFD700]/10',
+          border: 'border-accent-secondary',
+          text: 'text-accent-secondary',
+          bg: 'bg-accent-secondary/10',
         };
       default:
         return {
@@ -64,7 +64,7 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
               className={cn(
                 'border-2 bg-black/50 backdrop-blur-sm',
                 colors.border,
-                'hover:shadow-[0_0_40px_rgba(218,2,14,0.3)] transition-all duration-300'
+                'hover:shadow-[0_0_40px_rgba(201,122,95,0.3)] transition-all duration-300'
               )}
             >
               <CardHeader className={colors.bg}>
@@ -78,11 +78,11 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
                 </div>
                 <div className="flex flex-wrap gap-4 text-sm text-white/70">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-[#FFD700]" />
+                    <Calendar className="h-4 w-4 text-accent-secondary" />
                     {experience.duration}
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-[#DA020E]" />
+                    <MapPin className="h-4 w-4 text-accent-primary" />
                     {experience.location}
                   </div>
                 </div>
@@ -107,12 +107,12 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
                 )}
                 {experience.degree && (
                   <div className="text-white/80 mb-4 p-4 bg-white/5 rounded-lg border border-white/10">
-                    <span className="font-bold text-[#FFD700]">{experience.degree}</span>
+                    <span className="font-bold text-accent-secondary">{experience.degree}</span>
                     {experience.cgpa && (
-                      <span className="ml-2 text-[#DA020E]">- CGPA: {experience.cgpa}</span>
+                      <span className="ml-2 text-accent-primary">- CGPA: {experience.cgpa}</span>
                     )}
                     {experience.percentage && (
-                      <span className="ml-2 text-[#FFD700]">- {experience.percentage}</span>
+                      <span className="ml-2 text-accent-secondary">- {experience.percentage}</span>
                     )}
                   </div>
                 )}
@@ -120,7 +120,7 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
                   {experience.tags.map((tag) => (
                     <Badge
                       key={tag}
-                      className="bg-[#DA020E]/20 text-[#DA020E] border border-[#DA020E] hover:bg-[#DA020E] hover:text-white transition-colors"
+                      className="bg-accent-primary/20 text-accent-primary border border-accent-primary hover:bg-accent-primary hover:text-white transition-colors"
                     >
                       {tag}
                     </Badge>

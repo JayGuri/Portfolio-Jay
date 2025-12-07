@@ -79,7 +79,7 @@ export function Experience() {
             viewport={{ once: true }}
             transition={{ duration: 1.5, ease: 'easeInOut' }}
             style={{
-              background: 'linear-gradient(180deg, #C97A5F 0%, #D4A574 50%, #C97A5F 100%)',
+              background: 'linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-primary) 100%)',
               boxShadow: '0 0 15px rgba(201, 122, 95, 0.2)',
             }}
           />
