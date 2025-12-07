@@ -89,12 +89,12 @@ export function Contact() {
       </div>
 
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden z-[1]">
+      <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-0 left-0">
-          <MorphingBlob color="#DA020E" size={500} />
+          <MorphingBlob color="#C97A5F" size={500} />
         </div>
         <div className="absolute bottom-0 right-0">
-          <MorphingBlob color="#FFD700" size={450} />
+          <MorphingBlob color="#D4A574" size={450} />
         </div>
       </div>
 
@@ -103,7 +103,7 @@ export function Contact() {
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"
             style={{
-              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+              textShadow: '0 0 40px rgba(201, 122, 95, 0.2)',
             }}
           >
             CONTACT
@@ -120,7 +120,7 @@ export function Contact() {
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+              <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[accent-primary] transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-3xl font-black text-white">Send a Message</CardTitle>
                 </CardHeader>
@@ -130,10 +130,10 @@ export function Contact() {
                       <Input
                         placeholder="Your Name"
                         {...register('name')}
-                        className={errors.name ? 'border-[#DA020E]' : ''}
+                        className={errors.name ? 'border-accent-primary' : ''}
                       />
                       {errors.name && (
-                        <p className="text-sm text-[#DA020E] mt-1">{errors.name.message}</p>
+                        <p className="text-sm text-accent-primary mt-1">{errors.name.message}</p>
                       )}
                     </div>
 
@@ -142,10 +142,10 @@ export function Contact() {
                         type="email"
                         placeholder="Your Email"
                         {...register('email')}
-                        className={errors.email ? 'border-[#DA020E]' : ''}
+                        className={errors.email ? 'border-accent-primary' : ''}
                       />
                       {errors.email && (
-                        <p className="text-sm text-[#DA020E] mt-1">{errors.email.message}</p>
+                        <p className="text-sm text-accent-primary mt-1">{errors.email.message}</p>
                       )}
                     </div>
 
@@ -161,10 +161,10 @@ export function Contact() {
                         placeholder="Your Message"
                         rows={6}
                         {...register('message')}
-                        className={errors.message ? 'border-[#DA020E]' : ''}
+                        className={errors.message ? 'border-accent-primary' : ''}
                       />
                       {errors.message && (
-                        <p className="text-sm text-[#DA020E] mt-1">{errors.message.message}</p>
+                        <p className="text-sm text-accent-primary mt-1">{errors.message.message}</p>
                       )}
                     </div>
 
@@ -172,7 +172,7 @@ export function Contact() {
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="p-4 rounded-lg bg-[#FFD700]/20 border-2 border-[#FFD700] text-[#FFD700]"
+                        className="p-4 rounded-lg bg-accent-secondary/20 border border-accent-secondary/40 text-accent-secondary"
                       >
                         Message sent! I'll get back to you soon.
                       </motion.div>
@@ -182,7 +182,7 @@ export function Contact() {
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="p-4 rounded-lg bg-[#DA020E]/20 border-2 border-[#DA020E] text-[#DA020E]"
+                        className="p-4 rounded-lg bg-accent-primary/20 border border-accent-primary/40 text-accent-primary"
                       >
                         Failed to send message. Please try again or contact me directly.
                       </motion.div>
@@ -193,7 +193,7 @@ export function Contact() {
                         type="submit"
                         size="lg"
                         disabled={isSubmitting}
-                        className="w-full bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
+                        className="w-full"
                       >
                         {isSubmitting ? (
                           'Sending...'
@@ -218,7 +218,7 @@ export function Contact() {
                 whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#FFD700] transition-all duration-300">
+                <Card className="bg-black/40 backdrop-blur-sm border border-white/8 hover:border-accent-secondary/40 transition-all duration-300">
                   <CardContent className="p-8">
                     <div className="space-y-6">
                       <motion.div
@@ -226,14 +226,14 @@ export function Contact() {
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <div className="p-3 bg-[#DA020E]/20 rounded-lg">
-                          <Mail className="h-6 w-6 text-[#DA020E]" />
+                        <div className="p-3 bg-accent-primary/20 rounded-lg">
+                          <Mail className="h-6 w-6 text-accent-primary" />
                         </div>
                         <div>
                           <div className="text-sm text-white/60 mb-1">Email</div>
                           <a
                             href={`mailto:${socialLinks.email}`}
-                            className="text-white hover:text-[#DA020E] transition-colors font-semibold"
+                            className="text-white hover:text-accent-primary transition-colors font-semibold"
                           >
                             {socialLinks.email}
                           </a>
@@ -245,14 +245,14 @@ export function Contact() {
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <div className="p-3 bg-[#FFD700]/20 rounded-lg">
-                          <Phone className="h-6 w-6 text-[#FFD700]" />
+                        <div className="p-3 bg-accent-secondary/20 rounded-lg">
+                          <Phone className="h-6 w-6 text-accent-secondary" />
                         </div>
                         <div>
                           <div className="text-sm text-white/60 mb-1">Phone</div>
                           <a
                             href={`tel:${socialLinks.phone}`}
-                            className="text-white hover:text-[#FFD700] transition-colors font-semibold"
+                            className="text-white hover:text-accent-secondary transition-colors font-semibold"
                           >
                             {socialLinks.phone}
                           </a>
@@ -264,8 +264,8 @@ export function Contact() {
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <div className="p-3 bg-[#DA020E]/20 rounded-lg">
-                          <MapPin className="h-6 w-6 text-[#DA020E]" />
+                        <div className="p-3 bg-accent-primary/20 rounded-lg">
+                          <MapPin className="h-6 w-6 text-accent-primary" />
                         </div>
                         <div>
                           <div className="text-sm text-white/60 mb-1">Location</div>
@@ -281,7 +281,7 @@ export function Contact() {
                 whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+                <Card className="bg-black/40 backdrop-blur-sm border border-white/8 hover:border-accent-primary/40 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-2xl font-black text-white">Connect With Me</CardTitle>
                   </CardHeader>
@@ -292,7 +292,6 @@ export function Contact() {
                           variant="outline"
                           size="sm"
                           onClick={() => window.open(socialLinks.linkedin, '_blank')}
-                          className="bg-transparent border-2 border-white/20 text-white hover:border-[#DA020E] hover:text-[#DA020E]"
                         >
                           <Linkedin className="mr-2 h-4 w-4" />
                           LinkedIn
@@ -303,7 +302,6 @@ export function Contact() {
                           variant="outline"
                           size="sm"
                           onClick={() => window.open(socialLinks.github, '_blank')}
-                          className="bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]"
                         >
                           <Github className="mr-2 h-4 w-4" />
                           GitHub
@@ -314,7 +312,6 @@ export function Contact() {
                           variant="outline"
                           size="sm"
                           onClick={() => window.open(socialLinks.instagram, '_blank')}
-                          className="bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]"
                         >
                           <Instagram className="mr-2 h-4 w-4" />
                           Instagram

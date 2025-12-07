@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Navigation } from '@/components/Navigation';
+import StaggeredMenu from '@/components/StaggeredMenu';
 import { Footer } from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
+import { navItems, socialLinks } from '@/lib/constants';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -58,11 +59,38 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const menuItems = navItems.map(item => ({
+    label: item.label,
+    ariaLabel: `Go to ${item.label} section`,
+    link: `#${item.id}`
+  }));
+
+  const socialItems = [
+    { label: 'LinkedIn', link: socialLinks.linkedin },
+    { label: 'GitHub', link: socialLinks.github },
+    { label: 'Instagram', link: socialLinks.instagram }
+  ];
+
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-black text-white antialiased">
         <SmoothScroll />
-        <Navigation />
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', pointerEvents: 'none', zIndex: 40 }}>
+          <StaggeredMenu
+            position="right"
+            items={menuItems}
+            socialItems={socialItems}
+            displaySocials={true}
+            displayItemNumbering={true}
+            menuButtonColor="#fff"
+            openMenuButtonColor="#fff"
+            changeMenuColorOnOpen={true}
+            colors={['#0a0a0a', '#141414']}
+            accentColor="#C97A5F"
+            isFixed={true}
+            closeOnClickAway={true}
+          />
+        </div>
         <main>{children}</main>
         <Footer />
       </body>

@@ -11,6 +11,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { skills } from '@/lib/data';
 
+const LogoLoop = dynamic(
+  () => import('@/components/LogoLoop').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
+
 const DarkVeil = dynamic(
   () => import('@/components/DarkVeil').then((mod) => ({ default: mod.default })),
   {
@@ -56,12 +64,12 @@ export function Skills() {
       </div>
 
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden z-[1]">
+      <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-1/3 right-0">
-          <MorphingBlob color="#FFD700" size={400} />
+          <MorphingBlob color="#D4A574" size={400} />
         </div>
         <div className="absolute bottom-1/3 left-0">
-          <MorphingBlob color="#DA020E" size={350} />
+          <MorphingBlob color="#C97A5F" size={350} />
         </div>
       </div>
 
@@ -70,7 +78,7 @@ export function Skills() {
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"
             style={{
-              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+              textShadow: '0 0 40px rgba(201, 122, 95, 0.2)',
             }}
           >
             SKILLS
@@ -82,12 +90,12 @@ export function Skills() {
 
         <Tabs defaultValue="languages" className="w-full">
           <ScrollReveal delay={0.2}>
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-12 bg-black/50 backdrop-blur-sm border-2 border-white/10">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-12 bg-black/40 backdrop-blur-sm border border-white/8">
               {skillCategories.map((category) => (
                 <TabsTrigger
                   key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-[#DA020E] data-[state=active]:text-white data-[state=active]:border-[#DA020E] border-2 border-transparent hover:border-[#FFD700] transition-all"
+                  className="data-[state=active]:bg-accent-primary data-[state=active]:text-white data-[state=active]:border-accent-primary border border-transparent hover:border-accent-secondary/40 transition-all"
                 >
                   {category.label}
                 </TabsTrigger>
@@ -108,7 +116,7 @@ export function Skills() {
                         whileTap={{ scale: 0.95 }}
                       >
                         <Badge
-                          className="text-lg px-6 py-3 bg-[#DA020E]/20 text-[#DA020E] border-2 border-[#DA020E] hover:bg-[#DA020E] hover:text-white transition-all cursor-pointer"
+                          className="text-lg px-6 py-3 bg-accent-primary/20 text-accent-primary border border-accent-primary/40 hover:bg-accent-primary hover:text-white transition-all cursor-pointer"
                         >
                           {skill.name}
                         </Badge>
@@ -130,6 +138,34 @@ export function Skills() {
             </TabsContent>
           ))}
         </Tabs>
+
+        {/* Tech Stack Logos */}
+        <ScrollReveal delay={0.4}>
+          <div className="mt-16">
+            <h3 className="text-3xl font-bold text-white mb-8 text-center">Tech Stack</h3>
+            <div style={{ height: '120px', position: 'relative', overflow: 'hidden' }}>
+              <LogoLoop
+                logos={[
+                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>React</span>, title: 'React', href: 'https://react.dev' },
+                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>Next.js</span>, title: 'Next.js', href: 'https://nextjs.org' },
+                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>TypeScript</span>, title: 'TypeScript', href: 'https://www.typescriptlang.org' },
+                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>Node.js</span>, title: 'Node.js', href: 'https://nodejs.org' },
+                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>Python</span>, title: 'Python', href: 'https://python.org' },
+                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>MongoDB</span>, title: 'MongoDB', href: 'https://mongodb.com' },
+                ]}
+                speed={80}
+                direction="left"
+                logoHeight={48}
+                gap={60}
+                hoverSpeed={20}
+                fadeOut
+                fadeOutColor="#000000"
+                scaleOnHover
+                ariaLabel="Technology stack"
+              />
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -56,7 +56,7 @@ export function Projects() {
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"
             style={{
-              textShadow: '0 0 80px rgba(255, 215, 0, 0.5)',
+              textShadow: '0 0 40px rgba(212, 165, 116, 0.2)',
             }}
           >
             PROJECTS
@@ -77,8 +77,8 @@ export function Projects() {
                   size="lg"
                   className={
                     filter === category
-                      ? 'bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]'
-                      : 'bg-transparent border-2 border-white/20 text-white hover:border-[#FFD700] hover:text-[#FFD700]'
+                      ? 'bg-accent-primary hover:bg-accent-primary-dark text-white border border-accent-primary/40'
+                      : 'bg-transparent border border-white/8 text-white hover:border-accent-secondary/40 hover:text-accent-secondary'
                   }
                 >
                   {category}
@@ -108,7 +108,7 @@ export function Projects() {
           onOpenChange={(open) => !open && setSelectedProject(null)}
         >
           {selectedProject && (
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-black border-2 border-[#DA020E]">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-black border border-accent-primary/40">
               <DialogHeader>
                 <DialogTitle className="text-4xl font-black text-white mb-4">
                   {selectedProject.title}
@@ -120,11 +120,11 @@ export function Projects() {
 
               <div className="space-y-6 mt-6">
                 <div>
-                  <h4 className="text-2xl font-bold text-[#FFD700] mb-3">Features</h4>
+                  <h4 className="text-2xl font-bold text-accent-secondary mb-3">Features</h4>
                   <ul className="space-y-2 text-white/90">
                     {selectedProject.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-[#DA020E] mt-1">▸</span>
+                        <span className="text-accent-primary mt-1">▸</span>
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -132,12 +132,12 @@ export function Projects() {
                 </div>
 
                 <div>
-                  <h4 className="text-2xl font-bold text-[#FFD700] mb-3">Tech Stack</h4>
+                  <h4 className="text-2xl font-bold text-accent-secondary mb-3">Tech Stack</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tags.map((tag) => (
                       <Badge
                         key={tag}
-                        className="bg-[#DA020E]/20 text-[#DA020E] border border-[#DA020E]"
+                        className="bg-accent-primary/20 text-accent-primary border border-accent-primary/40"
                       >
                         {tag}
                       </Badge>
@@ -149,7 +149,6 @@ export function Projects() {
                   {selectedProject.github && (
                     <Button
                       onClick={() => window.open(selectedProject.github!, '_blank')}
-                      className="bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
                     >
                       <Github className="mr-2 h-4 w-4" />
                       View on GitHub
@@ -157,9 +156,8 @@ export function Projects() {
                   )}
                   {selectedProject.liveDemo && (
                     <Button
-                      variant="outline"
+                      variant="secondary"
                       onClick={() => window.open(selectedProject.liveDemo!, '_blank')}
-                      className="bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black"
                     >
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Live Demo

@@ -46,12 +46,12 @@ export function Experience() {
       </div>
 
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden z-[1]">
+      <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-0 left-1/4">
-          <MorphingBlob color="#DA020E" size={450} />
+          <MorphingBlob color="#C97A5F" size={450} />
         </div>
         <div className="absolute bottom-0 right-1/4">
-          <MorphingBlob color="#FFD700" size={400} />
+          <MorphingBlob color="#D4A574" size={400} />
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export function Experience() {
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"
             style={{
-              textShadow: '0 0 80px rgba(255, 215, 0, 0.5)',
+              textShadow: '0 0 40px rgba(212, 165, 116, 0.2)',
             }}
           >
             EXPERIENCE
@@ -79,8 +79,8 @@ export function Experience() {
             viewport={{ once: true }}
             transition={{ duration: 1.5, ease: 'easeInOut' }}
             style={{
-              background: 'linear-gradient(180deg, #DA020E 0%, #FFD700 50%, #DA020E 100%)',
-              boxShadow: '0 0 20px rgba(218, 2, 14, 0.5)',
+              background: 'linear-gradient(180deg, #C97A5F 0%, #D4A574 50%, #C97A5F 100%)',
+              boxShadow: '0 0 15px rgba(201, 122, 95, 0.2)',
             }}
           />
 
@@ -90,16 +90,16 @@ export function Experience() {
               <div key={exp.id} className="relative">
                 {/* Animated Timeline dot */}
                 <motion.div
-                  className="hidden lg:block absolute left-1/2 top-8 w-6 h-6 rounded-full bg-[#DA020E] border-4 border-black -translate-x-1/2 z-10"
+                  className="hidden lg:block absolute left-1/2 top-8 w-6 h-6 rounded-full bg-accent-primary border-4 border-black -translate-x-1/2 z-10"
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2, duration: 0.5 }}
                   animate={{
                     boxShadow: [
-                      '0 0 0px rgba(218, 2, 14, 0.5)',
-                      '0 0 20px rgba(218, 2, 14, 0.8)',
-                      '0 0 0px rgba(218, 2, 14, 0.5)',
+                      '0 0 0px rgba(201, 122, 95, 0.3)',
+                      '0 0 15px rgba(201, 122, 95, 0.4)',
+                      '0 0 0px rgba(201, 122, 95, 0.3)',
                     ],
                   }}
                   transition={{

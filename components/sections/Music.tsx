@@ -33,9 +33,9 @@ export function Music() {
       </div>
 
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden z-[1]">
+      <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <MorphingBlob color="#FFD700" size={600} />
+          <MorphingBlob color="#D4A574" size={600} />
         </div>
       </div>
 
@@ -44,7 +44,7 @@ export function Music() {
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8 text-center"
             style={{
-              textShadow: '0 0 80px rgba(255, 215, 0, 0.5)',
+              textShadow: '0 0 40px rgba(212, 165, 116, 0.2)',
             }}
           >
             MUSIC
@@ -59,7 +59,7 @@ export function Music() {
             whileHover={{ scale: 1.02, y: -5 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="bg-black/50 backdrop-blur-sm border-2 border-[#FFD700] hover:border-[#DA020E] transition-all duration-300 hover:shadow-[0_0_60px_rgba(255,215,0,0.4)]">
+            <Card className="bg-black/40 backdrop-blur-sm border border-accent-secondary/40 hover:border-accent-primary/40 transition-all duration-300">
               <CardContent className="p-12 text-center">
                 <motion.div
                   animate={{
@@ -71,7 +71,7 @@ export function Music() {
                     ease: 'linear',
                   }}
                 >
-                  <Music2 className="h-24 w-24 mx-auto mb-8 text-[#FFD700]" />
+                  <Music2 className="h-24 w-24 mx-auto mb-8 text-accent-secondary" />
                 </motion.div>
                 <h3 className="text-3xl font-black text-white mb-6">
                   Spotify Integration
@@ -82,10 +82,9 @@ export function Music() {
                 </p>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     size="lg"
                     onClick={() => window.open('https://open.spotify.com', '_blank')}
-                    className="bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black shadow-[0_0_40px_rgba(255,215,0,0.3)]"
                   >
                     <ExternalLink className="mr-2 h-5 w-5" />
                     Open Spotify

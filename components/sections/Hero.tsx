@@ -81,13 +81,13 @@ export function Hero() {
         <ThreeScene />
       </div>
 
-      {/* Morphing Blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
+      {/* Morphing Blobs - Subtle */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2] opacity-30">
         <div className="absolute top-1/4 left-1/4">
-          <MorphingBlob color="#DA020E" size={400} />
+          <MorphingBlob color="#C97A5F" size={400} />
         </div>
         <div className="absolute bottom-1/4 right-1/4">
-          <MorphingBlob color="#FFD700" size={350} />
+          <MorphingBlob color="#D4A574" size={350} />
         </div>
       </div>
 
@@ -112,13 +112,7 @@ export function Hero() {
             className="relative"
           >
             <motion.h2
-              className="text-4xl md:text-6xl font-bold mb-4"
-              style={{
-                background: 'linear-gradient(135deg, #DA020E 0%, #FFD700 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              className="text-4xl md:text-6xl font-bold mb-4 text-white"
             >
               Full-Stack Developer
             </motion.h2>
@@ -146,7 +140,7 @@ export function Hero() {
               <Button
                 onClick={scrollToProjects}
                 size="lg"
-                className="text-lg px-10 py-6 bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
+                className="text-lg px-10 py-6"
               >
                 View My Work
                 <ArrowDown className="ml-2 h-5 w-5" />
@@ -158,9 +152,9 @@ export function Hero() {
             >
               <Button
                 onClick={downloadResume}
-                variant="outline"
+                variant="secondary"
                 size="lg"
-                className="text-lg px-10 py-6 bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black shadow-[0_0_40px_rgba(255,215,0,0.3)]"
+                className="text-lg px-10 py-6"
               >
                 <Download className="mr-2 h-5 w-5" />
                 Download Resume
@@ -180,12 +174,12 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-[#FFD700] rounded-full flex items-start justify-center p-2"
+          className="w-6 h-10 border border-white/20 rounded-full flex items-start justify-center p-2"
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-[#FFD700] rounded-full"
+            className="w-1 h-3 bg-accent-secondary rounded-full"
           />
         </motion.div>
       </motion.div>

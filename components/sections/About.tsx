@@ -69,12 +69,12 @@ export function About() {
       </div>
 
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden z-[1]">
+      <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-0 right-0">
-          <MorphingBlob color="#DA020E" size={500} />
+          <MorphingBlob color="#C97A5F" size={500} />
         </div>
         <div className="absolute bottom-0 left-0">
-          <MorphingBlob color="#FFD700" size={450} />
+          <MorphingBlob color="#D4A574" size={450} />
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export function About() {
           <motion.h2
             className="text-7xl md:text-9xl font-black text-white mb-8"
             style={{
-              textShadow: '0 0 80px rgba(218, 2, 14, 0.5)',
+              textShadow: '0 0 40px rgba(201, 122, 95, 0.2)',
             }}
           >
             ABOUT
@@ -100,12 +100,12 @@ export function About() {
             className="space-y-6"
           >
             <p className="text-xl text-white/90 leading-relaxed">
-              I'm <span className="text-[#DA020E] font-bold">Jay Guri</span>, a third-year Computer Science (Data Science) student
+              I'm <span className="text-accent-primary font-semibold">Jay Guri</span>, a third-year Computer Science (Data Science) student
               at Dwarkadas J. Sanghvi College of Engineering, Mumbai, with a CGPA
-              of <span className="text-[#FFD700] font-bold">9.56</span>.
+              of <span className="text-accent-secondary font-semibold">9.56</span>.
             </p>
             <p className="text-xl text-white/90 leading-relaxed">
-              As the <span className="text-[#DA020E] font-bold">Chairperson of DJS S4DS</span>, I lead a multidisciplinary team
+              As the <span className="text-accent-primary font-semibold">Chairperson of DJS S4DS</span>, I lead a multidisciplinary team
               driving innovation in AI, machine learning, and web development.
             </p>
             <p className="text-xl text-white/90 leading-relaxed">
@@ -119,7 +119,6 @@ export function About() {
                 <Button
                   onClick={downloadResume}
                   size="lg"
-                  className="bg-[#DA020E] hover:bg-[#A0000A] text-white border-2 border-[#DA020E] shadow-[0_0_40px_rgba(218,2,14,0.5)]"
                 >
                   Download Resume
                 </Button>
@@ -127,9 +126,8 @@ export function About() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   onClick={scrollToContact}
-                  variant="outline"
+                  variant="secondary"
                   size="lg"
-                  className="bg-transparent border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700] hover:text-black shadow-[0_0_40px_rgba(255,215,0,0.3)]"
                 >
                   Let's Connect
                 </Button>
@@ -150,22 +148,16 @@ export function About() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ scale: 1.05, rotate: 2 }}
                 >
-                  <Card className="bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-[#DA020E] transition-all duration-300">
+                  <Card className="bg-black/40 backdrop-blur-sm border border-white/8 hover:border-accent-primary/40 transition-all duration-300">
                     <CardContent className="p-8 text-center">
                       <motion.div
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
                       >
-                        <Icon className="h-12 w-12 mx-auto mb-4 text-[#FFD700]" />
+                        <Icon className="h-12 w-12 mx-auto mb-4 text-accent-secondary" />
                       </motion.div>
                       <motion.div
-                        className="text-5xl font-black mb-2"
-                        style={{
-                          background: 'linear-gradient(135deg, #DA020E 0%, #FFD700 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                        }}
+                        className="text-5xl font-black mb-2 text-white"
                       >
                         {stat.value}
                       </motion.div>
