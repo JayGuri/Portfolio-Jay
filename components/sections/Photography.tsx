@@ -12,8 +12,8 @@ const DarkVeil = dynamic(
   }
 );
 
-const CircularGallery = dynamic(
-  () => import('@/components/CircularGallery').then((mod) => ({ default: mod.default })),
+const DomeGallery = dynamic(
+  () => import('@/components/DomeGallery').then((mod) => ({ default: mod.default })),
   {
     ssr: false,
     loading: () => null,
@@ -21,9 +21,10 @@ const CircularGallery = dynamic(
 );
 
 export function Photography() {
-  const galleryItems = photographyImages.map(photo => ({
-    image: photo.src || `https://picsum.photos/seed/${photo.id}/800/600`,
-    text: photo.alt || `Photo ${photo.id}`
+  // Convert photography images to DomeGallery format
+  const galleryImages = photographyImages.map(photo => ({
+    src: photo.src || `https://picsum.photos/seed/${photo.id}/800/600`,
+    alt: photo.alt || `Photo ${photo.id}`
   }));
 
   return (
@@ -42,14 +43,26 @@ export function Photography() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-[10] h-full">
-        {/* Circular Gallery */}
-        <div style={{ height: '600px', position: 'relative', marginTop: '2rem' }}>
-          <CircularGallery 
-            items={galleryItems}
-            bend={3}
-            textColor="#ffffff"
-            borderRadius={0.05}
-            scrollEase={0.02}
+        {/* Dome Gallery */}
+        <div style={{ width: '100%', height: '80vh', minHeight: '600px', position: 'relative', marginTop: '2rem' }}>
+          <DomeGallery 
+            images={galleryImages}
+            fit={0.5}
+            fitBasis="auto"
+            minRadius={400}
+            maxRadius={800}
+            padFactor={0.25}
+            overlayBlurColor="#060010"
+            maxVerticalRotationDeg={5}
+            dragSensitivity={20}
+            enlargeTransitionMs={300}
+            segments={35}
+            dragDampening={2}
+            openedImageWidth="600px"
+            openedImageHeight="600px"
+            imageBorderRadius="20px"
+            openedImageBorderRadius="30px"
+            grayscale={false}
           />
         </div>
       </div>

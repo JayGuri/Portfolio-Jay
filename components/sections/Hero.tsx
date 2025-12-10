@@ -22,7 +22,8 @@ const DarkVeil = dynamic(
 );
 
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
-import { FluidText } from '@/components/animations/FluidText';
+import Shuffle from '@/components/Shuffle';
+import DecryptedText from '@/components/DecryptedText';
 import { Button } from '@/components/ui/button';
 import { Download, ArrowDown } from 'lucide-react';
 
@@ -47,7 +48,7 @@ export function Hero() {
   }, [mouseX, mouseY]);
 
   const goToProjects = () => {
-    router.push('/projects');
+    router.push('/work#projects');
   };
 
   const downloadResume = () => {
@@ -98,10 +99,20 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <FluidText
+          <Shuffle
             text="JAY GURI"
+            tag="h1"
             className="text-9xl md:text-[12rem] font-black text-white mb-6 tracking-tighter"
-            delay={0.2}
+            shuffleDirection="right"
+            duration={0.35}
+            animationMode="evenodd"
+            shuffleTimes={1}
+            ease="power3.out"
+            stagger={0.03}
+            threshold={0.1}
+            triggerOnce={true}
+            triggerOnHover={true}
+            respectReducedMotion={true}
           />
 
           <motion.div
@@ -110,19 +121,22 @@ export function Hero() {
             transition={{ duration: 1, delay: 0.5 }}
             className="relative"
           >
-            <motion.h2
-              className="text-4xl md:text-6xl font-bold mb-4 text-white"
-            >
-              Full-Stack Developer
-            </motion.h2>
-            <motion.p
-              className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-            >
-              Building intelligent, user-centric digital experiences
-            </motion.p>
+            <DecryptedText
+              text="Full-Stack Developer"
+              className="text-4xl md:text-6xl font-bold mb-4 text-white block"
+              animateOn="view"
+              revealDirection="center"
+              speed={50}
+              maxIterations={20}
+            />
+            <DecryptedText
+              text="Building intelligent, user-centric digital experiences"
+              className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto block"
+              animateOn="view"
+              revealDirection="center"
+              speed={50}
+              maxIterations={20}
+            />
           </motion.div>
 
           {/* CTA Buttons */}

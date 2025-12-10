@@ -4,6 +4,7 @@ import './globals.css';
 import StaggeredMenu from '@/components/StaggeredMenu';
 import { Footer } from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
+import ClickSpark from '@/components/ClickSpark';
 import { navItems, socialLinks } from '@/lib/constants';
 
 const inter = Inter({
@@ -76,23 +77,31 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-black text-white antialiased">
-        <SmoothScroll />
-        <StaggeredMenu
-          position="right"
-          items={menuItems}
-          socialItems={socialItems}
-          displaySocials={true}
-          displayItemNumbering={true}
-          menuButtonColor="#fff"
-          openMenuButtonColor="#fff"
-          changeMenuColorOnOpen={true}
-          colors={['#0a0a0a', '#141414']}
-          accentColor="#3B82F6"
-          isFixed={true}
-          closeOnClickAway={true}
-        />
-        <main>{children}</main>
-        <Footer />
+        <ClickSpark
+          sparkColor="#3B82F6"
+          sparkSize={10}
+          sparkRadius={15}
+          sparkCount={8}
+          duration={400}
+        >
+          <SmoothScroll />
+          <StaggeredMenu
+            position="right"
+            items={menuItems}
+            socialItems={socialItems}
+            displaySocials={true}
+            displayItemNumbering={true}
+            menuButtonColor="#fff"
+            openMenuButtonColor="#fff"
+            changeMenuColorOnOpen={true}
+            colors={['#0a0a0a', '#141414']}
+            accentColor="#3B82F6"
+            isFixed={true}
+            closeOnClickAway={true}
+          />
+          <main>{children}</main>
+          <Footer />
+        </ClickSpark>
       </body>
     </html>
   );

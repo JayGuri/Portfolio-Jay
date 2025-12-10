@@ -142,10 +142,10 @@ export function Skills() {
                   
                   return popularTech.map(techName => {
                     const techIcon = getTechIcon(techName);
-                    if (techIcon) {
+                    if (techIcon?.icon) {
                       const IconComponent = techIcon.icon;
                       return {
-                        node: <IconComponent className="w-12 h-12 text-white" />,
+                        node: React.createElement(IconComponent, { className: 'w-12 h-12 text-white' }),
                         title: techName,
                         href: `https://www.google.com/search?q=${encodeURIComponent(techName)}`
                       };
