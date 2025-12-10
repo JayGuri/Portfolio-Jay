@@ -95,7 +95,7 @@ export function ProjectCard({ project, onViewDetails, delay = 0 }: ProjectCardPr
               <Button
                 size="sm"
                 onClick={() => onViewDetails(project)}
-                className="bg-accent-primary hover:bg-accent-primary-dark text-white border-2 border-accent-primary shadow-[0_0_20px_rgba(201,122,95,0.5)]"
+                className="bg-accent-primary hover:bg-accent-primary-dark text-white border-2 border-accent-primary shadow-[0_0_20px_rgba(59,130,246,0.5)]"
               >
                 <Eye className="mr-2 h-4 w-4" />
                 View Details

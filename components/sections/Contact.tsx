@@ -91,10 +91,10 @@ export function Contact() {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-0 left-0">
-          <MorphingBlob color="#C97A5F" size={500} />
+          <MorphingBlob color="#3B82F6" size={500} />
         </div>
         <div className="absolute bottom-0 right-0">
-          <MorphingBlob color="#D4A574" size={450} />
+          <MorphingBlob color="#60A5FA" size={450} />
         </div>
       </div>
 

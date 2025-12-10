@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --accent-primary: 201 122 95;
-    --accent-primary-light: 217 154 127;
-    --accent-primary-dark: 168 90 63;
-    --accent-secondary: 212 165 116;
-    --accent-secondary-light: 228 181 132;
-    --accent-secondary-dark: 180 149 100;
-    --accent-tertiary: 139 111 158;
+    --accent-primary: 59 130 246; /* Blue-500 */
+    --accent-primary-light: 96 165 250; /* Blue-400 */
+    --accent-primary-dark: 37 99 235; /* Blue-600 */
+    --accent-secondary: 96 165 250; /* Blue-400 */
+    --accent-secondary-light: 147 197 253; /* Blue-300 */
+    --accent-secondary-dark: 59 130 246; /* Blue-500 */
+    --accent-tertiary: 37 99 235; /* Blue-600 */
     --black: 0 0 0;
     --white: 255 255 255;
     --background-primary: 0 0 0;

@@ -10,25 +10,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Subtle, organic accent colors
+        // Blue, black, and white theme
         accent: {
           primary: {
-            DEFAULT: "#C97A5F",
-            light: "#D99A7F",
-            dark: "#A85A3F",
-            subtle: "rgba(201, 122, 95, 0.2)",
+            DEFAULT: "#3B82F6", // Blue-500
+            light: "#60A5FA", // Blue-400
+            dark: "#2563EB", // Blue-600
+            subtle: "rgba(59, 130, 246, 0.2)",
           },
           secondary: {
-            DEFAULT: "#D4A574",
-            light: "#E4B584",
-            dark: "#B49564",
-            subtle: "rgba(212, 165, 116, 0.2)",
+            DEFAULT: "#60A5FA", // Blue-400
+            light: "#93C5FD", // Blue-300
+            dark: "#3B82F6", // Blue-500
+            subtle: "rgba(96, 165, 250, 0.2)",
           },
           tertiary: {
-            DEFAULT: "#8B6F9E",
-            light: "#9B7FAE",
-            dark: "#7B5F8E",
-            subtle: "rgba(139, 111, 158, 0.2)",
+            DEFAULT: "#2563EB", // Blue-600
+            light: "#3B82F6", // Blue-500
+            dark: "#1D4ED8", // Blue-700
+            subtle: "rgba(37, 99, 235, 0.2)",
           },
         },
         black: "#000000",

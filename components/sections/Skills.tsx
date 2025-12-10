@@ -6,10 +6,12 @@ import dynamic from 'next/dynamic';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { StaggerChildren } from '@/components/animations/StaggerChildren';
 import { MorphingBlob } from '@/components/animations/MorphingBlob';
+import React from 'react';
 import { SkillCard } from '@/components/SkillCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { skills } from '@/lib/data';
+import { getAllTechStack, getTechIcon } from '@/lib/techStackIcons';
 
 const LogoLoop = dynamic(
   () => import('@/components/LogoLoop').then((mod) => ({ default: mod.default })),
@@ -66,10 +68,10 @@ export function Skills() {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-1/3 right-0">
-          <MorphingBlob color="#D4A574" size={400} />
+          <MorphingBlob color="#60A5FA" size={400} />
         </div>
         <div className="absolute bottom-1/3 left-0">
-          <MorphingBlob color="#C97A5F" size={350} />
+          <MorphingBlob color="#3B82F6" size={350} />
         </div>
       </div>
 
@@ -132,14 +134,25 @@ export function Skills() {
             <h3 className="text-3xl font-bold text-white mb-8 text-center">Tech Stack</h3>
             <div style={{ height: '120px', position: 'relative', overflow: 'hidden' }}>
               <LogoLoop
-                logos={[
-                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>React</span>, title: 'React', href: 'https://react.dev' },
-                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>Next.js</span>, title: 'Next.js', href: 'https://nextjs.org' },
-                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>TypeScript</span>, title: 'TypeScript', href: 'https://www.typescriptlang.org' },
-                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>Node.js</span>, title: 'Node.js', href: 'https://nodejs.org' },
-                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>Python</span>, title: 'Python', href: 'https://python.org' },
-                  { node: <span style={{ fontSize: '48px', color: '#fff' }}>MongoDB</span>, title: 'MongoDB', href: 'https://mongodb.com' },
-                ]}
+                logos={(() => {
+                  // Get all tech stack items and create logo nodes with icons
+                  const allTech = getAllTechStack();
+                  // Filter to show most common/relevant ones
+                  const popularTech = ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'MongoDB', 'PostgreSQL', 'Docker', 'Git/GitHub', 'TailwindCSS', 'Express', 'Flask', 'Pandas', 'TensorFlow', 'AWS', 'Vercel'];
+                  
+                  return popularTech.map(techName => {
+                    const techIcon = getTechIcon(techName);
+                    if (techIcon) {
+                      const IconComponent = techIcon.icon;
+                      return {
+                        node: <IconComponent className="w-12 h-12 text-white" />,
+                        title: techName,
+                        href: `https://www.google.com/search?q=${encodeURIComponent(techName)}`
+                      };
+                    }
+                    return null;
+                  }).filter(Boolean) as Array<{ node: React.ReactNode; title: string; href: string }>;
+                })()}
                 speed={80}
                 direction="left"
                 logoHeight={48}

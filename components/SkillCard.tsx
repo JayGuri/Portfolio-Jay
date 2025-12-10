@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skill } from '@/types';
+import { getTechIcon } from '@/lib/techStackIcons';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -62,7 +63,7 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
       onUpdate: function() {
         const progress = this.progress();
         const glowIntensity = progress * 0.5;
-        bar.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(201, 122, 95, ${glowIntensity})`;
+        bar.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(59, 130, 246, ${glowIntensity})`;
       },
     });
 
@@ -80,7 +81,27 @@ export function SkillCard({ skill, delay = 0 }: SkillCardProps) {
       <Card className="h-full bg-black/50 backdrop-blur-sm border-2 border-white/10 hover:border-accent-primary transition-all duration-300">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-white font-bold text-lg">{skill.name}</span>
+            <div className="flex items-center gap-3">
+              {(() => {
+                const techIcon = getTechIcon(skill.name);
+                if (techIcon?.icon) {
+                  const IconComponent = techIcon.icon;
+                  // Render the icon component if it exists
+                  return (
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/10">
+                      {React.createElement(IconComponent, { className: 'w-6 h-6 text-white' })}
+                    </div>
+                  );
+                }
+                // Fallback: show a generic icon placeholder
+                return (
+                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/10">
+                    <div className="w-6 h-6 rounded bg-accent-primary/30" />
+                  </div>
+                );
+              })()}
+              <span className="text-white font-bold text-lg">{skill.name}</span>
+            </div>
             <motion.span
               className="text-accent-secondary text-sm font-bold"
               animate={{

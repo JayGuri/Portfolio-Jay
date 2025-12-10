@@ -48,10 +48,10 @@ export function Experience() {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-0 left-1/4">
-          <MorphingBlob color="#C97A5F" size={450} />
+          <MorphingBlob color="#3B82F6" size={450} />
         </div>
         <div className="absolute bottom-0 right-1/4">
-          <MorphingBlob color="#D4A574" size={400} />
+          <MorphingBlob color="#60A5FA" size={400} />
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export function Experience() {
             transition={{ duration: 1.5, ease: 'easeInOut' }}
             style={{
               background: 'linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-primary) 100%)',
-              boxShadow: '0 0 15px rgba(201, 122, 95, 0.2)',
+              boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)',
             }}
           />
 
@@ -84,9 +84,9 @@ export function Experience() {
                   transition={{ delay: index * 0.2, duration: 0.5 }}
                   animate={{
                     boxShadow: [
-                      '0 0 0px rgba(201, 122, 95, 0.3)',
-                      '0 0 15px rgba(201, 122, 95, 0.4)',
-                      '0 0 0px rgba(201, 122, 95, 0.3)',
+                      '0 0 0px rgba(59, 130, 246, 0.3)',
+                      '0 0 15px rgba(59, 130, 246, 0.4)',
+                      '0 0 0px rgba(59, 130, 246, 0.3)',
                     ],
                   }}
                   transition={{

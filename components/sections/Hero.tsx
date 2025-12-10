@@ -83,10 +83,10 @@ export function Hero() {
       {/* Morphing Blobs - Subtle */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2] opacity-30">
         <div className="absolute top-1/4 left-1/4">
-          <MorphingBlob color="#C97A5F" size={400} />
+          <MorphingBlob color="#3B82F6" size={400} />
         </div>
         <div className="absolute bottom-1/4 right-1/4">
-          <MorphingBlob color="#D4A574" size={350} />
+          <MorphingBlob color="#60A5FA" size={350} />
         </div>
       </div>
 
@@ -173,12 +173,12 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border border-white/20 rounded-full flex items-start justify-center p-2"
+            className="w-6 h-10 border border-white/20 rounded-full flex items-start justify-center p-2"
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-accent-secondary rounded-full"
+            className="w-1 h-3 bg-accent-primary rounded-full"
           />
         </motion.div>
       </motion.div>

@@ -87,7 +87,7 @@ export default function RootLayout({
           openMenuButtonColor="#fff"
           changeMenuColorOnOpen={true}
           colors={['#0a0a0a', '#141414']}
-          accentColor="#C97A5F"
+          accentColor="#3B82F6"
           isFixed={true}
           closeOnClickAway={true}
         />

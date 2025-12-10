@@ -35,7 +35,7 @@ export function Music() {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden z-[1] opacity-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <MorphingBlob color="#D4A574" size={600} />
+          <MorphingBlob color="#60A5FA" size={600} />
         </div>
       </div>
 

@@ -13,34 +13,34 @@ export const colors = {
     muted: '#999999',
     disabled: '#666666',
   },
-  // Accent colors - Subtle, organic tones that complement DarkVeil shader
+  // Accent colors - Blue, black, and white theme
   accent: {
-    // Warm, muted orange-red (subtle)
+    // Primary blue
     primary: {
-      DEFAULT: '#C97A5F',
-      light: '#D99A7F',
-      dark: '#A85A3F',
-      subtle: 'rgba(201, 122, 95, 0.2)',
+      DEFAULT: '#3B82F6', // Blue-500
+      light: '#60A5FA', // Blue-400
+      dark: '#2563EB', // Blue-600
+      subtle: 'rgba(59, 130, 246, 0.2)',
     },
-    // Soft golden amber (subtle)
+    // Secondary blue (lighter shade)
     secondary: {
-      DEFAULT: '#D4A574',
-      light: '#E4B584',
-      dark: '#B49564',
-      subtle: 'rgba(212, 165, 116, 0.2)',
+      DEFAULT: '#60A5FA', // Blue-400
+      light: '#93C5FD', // Blue-300
+      dark: '#3B82F6', // Blue-500
+      subtle: 'rgba(96, 165, 250, 0.2)',
     },
-    // Deep purple-magenta (for variety)
+    // Tertiary blue (darker shade)
     tertiary: {
-      DEFAULT: '#8B6F9E',
-      light: '#9B7FAE',
-      dark: '#7B5F8E',
-      subtle: 'rgba(139, 111, 158, 0.2)',
+      DEFAULT: '#2563EB', // Blue-600
+      light: '#3B82F6', // Blue-500
+      dark: '#1D4ED8', // Blue-700
+      subtle: 'rgba(37, 99, 235, 0.2)',
     },
   },
-  // Functional colors - Subtle and professional
+  // Functional colors - Blue, black, and white theme
   border: 'rgba(255, 255, 255, 0.08)',
-  borderHover: 'rgba(255, 255, 255, 0.15)',
-  glow: 'rgba(201, 122, 95, 0.15)',
+  borderHover: 'rgba(59, 130, 246, 0.3)', // Blue with opacity
+  glow: 'rgba(59, 130, 246, 0.15)', // Blue glow
   overlay: 'rgba(0, 0, 0, 0.7)',
 } as const;
 

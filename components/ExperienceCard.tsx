@@ -64,7 +64,7 @@ export function ExperienceCard({ experience, index, isEven }: ExperienceCardProp
               className={cn(
                 'border-2 bg-black/50 backdrop-blur-sm',
                 colors.border,
-                'hover:shadow-[0_0_40px_rgba(201,122,95,0.3)] transition-all duration-300'
+                'hover:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300'
               )}
             >
               <CardHeader className={colors.bg}>
